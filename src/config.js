@@ -1,3 +1,6 @@
+import is from 'is';
+
+
 const cfg = {
     domain: 'django',
     activeLanguage: null,
@@ -11,7 +14,15 @@ export const setConfig = (key, val) => {
 };
 
 export const getConfig = (key) => {
-    return cfg[key];
+    let res = cfg[key];
+
+    if (key === 'activeLanguage' || key === 'languageCode') {
+        if (is.fn(res)) {
+            res = res();
+        }
+    }
+
+    return res;
 };
 
 export const getLogger = () => {
