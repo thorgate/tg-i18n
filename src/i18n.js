@@ -108,10 +108,15 @@ class I18N {
     }
 }
 
-const i18n = I18N.initFromConfig();
-export const gettext = i18n.gettext.bind(i18n);
-export const pgettext = i18n.pgettext.bind(i18n);
-export const ngettext = i18n.ngettext.bind(i18n);
-export const npgettext = i18n.npgettext.bind(i18n);
-export const sprintf = i18n.sprintf.bind(i18n);
-export default i18n;
+export default function makeI18n() {
+    const i18n = I18N.initFromConfig();
+
+    return {
+        i18n: i18n,
+        gettext: i18n.gettext.bind(i18n),
+        pgettext: i18n.pgettext.bind(i18n),
+        ngettext: i18n.ngettext.bind(i18n),
+        npgettext: i18n.npgettext.bind(i18n),
+        sprintf: i18n.sprintf.bind(i18n)
+    };
+}
