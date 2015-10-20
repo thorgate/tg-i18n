@@ -28,8 +28,15 @@ class I18N {
         this._activeLang = null;
         this.$t = null;
 
-        // Set the language active
-        this.setActiveLang(activeLanguage || defaultLanguage);
+        // Set active language if specified
+        if (activeLanguage) {
+            this.setActiveLang(activeLanguage);
+        }
+    }
+
+    forceLanguage(activeLanguage) {
+        this.requestLanguage = activeLanguage || activeLanguage;
+        this.setActiveLang(this.requestLanguage);
     }
 
     setActiveLang(theLanguage) {
@@ -48,7 +55,6 @@ class I18N {
                     }
                 });
 
-                // Reload if the language was changed at runtime
                 if (theLanguage !== this.requestLanguage) {
                     onLanguageChange(theLanguage);
                 }
