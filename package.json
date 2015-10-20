@@ -1,6 +1,6 @@
 {
   "name": "tg-i18n",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Internal tool to use translations in React that are loaded from our Django backend",
   "main": "dist/index.js",
   "repository": {
@@ -31,11 +31,11 @@
     "dist/"
   ],
   "scripts": {
-      "build": "babel --optional runtime src -d dist",
-      "prepublish": "npm run build -s",
-      "patch": "npm version patch && npm publish",
-      "minor": "npm version minor && npm publish",
-      "major": "npm version major && npm publish",
-      "postpublish": "git push origin master --follow-tags"
+    "build": "babel --optional runtime src -d dist",
+    "prepublish": "npm run build -s",
+    "patch": "npm version patch && npm publish",
+    "minor": "npm version minor && npm publish",
+    "major": "npm version major && npm publish",
+    "postpublish": "git push origin master --follow-tags"
   }
 }
