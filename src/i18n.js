@@ -2,7 +2,7 @@ import is from 'is';
 import Jed from 'jed';
 import moment from 'moment';
 
-import {getConfig, getLogger} from './config';
+import {getConfig, getLogger, onLanguageChange} from './config';
 
 
 class I18N {
@@ -49,8 +49,8 @@ class I18N {
                 });
 
                 // Reload if the language was changed at runtime
-                if (typeof window !== 'undefined' && theLanguage !== this.requestLanguage) {
-                    window.location.reload();
+                if (theLanguage !== this.requestLanguage) {
+                    onLanguageChange(theLanguage);
                 }
             }
         }
