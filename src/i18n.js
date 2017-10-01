@@ -1,6 +1,7 @@
 import is from 'is';
 import Jed from 'jed';
 import moment from 'moment';
+import {sprintf} from 'sprintf-js';
 
 import {getConfig, getLogger, onLanguageChange} from './config';
 
@@ -48,10 +49,11 @@ class I18N {
                 }
 
                 this._activeLang = theLanguage;
+                const domain = getConfig('domain');
                 this.$t = new Jed({
-                    domain: getConfig('domain'),
+                    domain,
                     locale_data: {
-                        django: JSON.parse(this.localeData[theLanguage] || '{}')
+                        [domain]: JSON.parse(this.localeData[theLanguage] || '{}')
                     }
                 });
 
@@ -97,9 +99,9 @@ class I18N {
         return this.$t.npgettext.apply(this.$t, [].slice.call(arguments));
     }
 
-    sprintf(out) {
+    interpolate(out) {
         if (!this.$t) {
-            return out;
+            return sprintf(out, [].slice.call(arguments, 1));
         }
 
         return this.$t.sprintf.apply(this.$t, [].slice.call(arguments));
@@ -123,6 +125,8 @@ export default function makeI18n() {
         pgettext: i18n.pgettext.bind(i18n),
         ngettext: i18n.ngettext.bind(i18n),
         npgettext: i18n.npgettext.bind(i18n),
-        sprintf: i18n.sprintf.bind(i18n)
+        interpolate: i18n.interpolate.bind(i18n),
+        forceLanguage: i18n.forceLanguage.bind(i18n),
+        setActiveLang: i18n.setActiveLang.bind(i18n)
     };
 }

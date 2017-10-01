@@ -1,6 +1,6 @@
 {
   "name": "tg-i18n",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "description": "Internal tool to use translations in React that are loaded from our Django backend",
   "main": "dist/index.js",
   "repository": {
@@ -21,11 +21,12 @@
     "eslint-config-airbnb": "^0.1.0"
   },
   "peerDependencies": {
-    "moment": "^2.10.6",
-    "is": "^3.1.0"
+    "is": "^3.1.0",
+    "moment": "^2.10.6"
   },
   "dependencies": {
-    "jed": "^1.1.0"
+    "jed": "^1.1.0",
+    "sprintf-js": "1.1.1"
   },
   "files": [
     "dist/"
