@@ -2,7 +2,7 @@ import is from 'is';
 
 
 const cfg = {
-    domain: 'django',
+    domain: 'djangojs',
     activeLanguage: null,
     languageCode: null,
     logger: console,
