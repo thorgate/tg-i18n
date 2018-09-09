@@ -1,0 +1,38 @@
+#: examples/parsing/translations.js:17
+#: examples/parsing/translations.js:22
+#: examples/parsing/translations.js:3
+msgid "Dummy test string"
+msgstr ""
+
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-09-09 21:27+0300\n"
+"PO-Revision-Date: 2018-09-09 21:27+0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: Russian\n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: Content-Transfer-Encoding\n"
+"Plural-Forms: nplurals = 3; plural = (n % 10 === 1 && n % 100 !== 11 ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2)\n"
+
+#: examples/parsing/translations.js:6
+msgctxt "test"
+msgid "Dummy test string"
+msgstr ""
+
+#: examples/parsing/translations.js:9
+msgid "There is %s more waybill"
+msgid_plural "There are %s more waybills"
+msgstr[0] ""
+msgstr[1] ""
+
+#: examples/parsing/translations.js:12
+msgctxt "list"
+msgid "There is %(waybillCount)s more waybill"
+msgid_plural "There are %(waybillCount)s more waybills"
+msgstr[0] ""
+msgstr[1] ""
+

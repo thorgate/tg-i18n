@@ -1,11 +1,12 @@
 .DS_Store
 logs
+examples
 *.log
 node_modules
-dist
-es
+.release
 tmp
 coverage
+.nyc_output
 npm-debug.log
 .vscode
-.idea/
+.idea

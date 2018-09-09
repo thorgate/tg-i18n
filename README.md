@@ -1,5 +1,13 @@
 # tg-i18n
 
+### TODOs:
+
+- Pot to Po transform
+- Compilemessage kinda script / export 
+- Tests
+- Documentation
+- Travis integration for auto-publish support
+
 > Internal tool to use translations in React that are loaded from our Django backend
 
 Example init:
@@ -10,7 +18,7 @@ Example init:
     const LANGUAGE_CODE = 'en';
     const LOCALE_DATA = {
         '': {
-            'domain': 'djangojs',
+            'domain': 'messages',
             // locale header
         },
         
@@ -24,11 +32,7 @@ Example init:
     
     const i18n = makeI18n();
     
-    export const gettext = i18n.gettext;
-    export const pgettext = i18n.pgettext;
-    export const ngettext = i18n.ngettext;
-    export const npgettext = i18n.npgettext;
-    export const interpolate = i18n.interpolate;
+    export i18n;
     
     export {setConfig} from 'tg-i18n';
     export default i18n;
@@ -40,4 +44,3 @@ Using:
     i18n.setActiveLang('en');
     
     console.log(gettext('Test string');
-    

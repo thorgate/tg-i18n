@@ -1,11 +1,16 @@
 {
   "name": "tg-i18n",
-  "version": "0.2.0",
-  "description": "Internal tool to use translations in React that are loaded from our Django backend",
-  "main": "dist/index.js",
+  "version": "1.0.0-alpha1",
+  "description": "Tool to generate translation files and provide them to React apps.",
+  "main": "./dist/index.js",
+  "jsnext:main": "./es/index.js",
+  "module": "./es/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/thorgate/tg-i18n.git"
+  },
+  "bin": {
+    "i18n-makemessages": "./dist/makemessages.js"
   },
   "author": "Thorgate <hi@thorgate.eu>",
   "license": "MIT",
@@ -14,26 +19,71 @@
   },
   "homepage": "https://github.com/thorgate/tg-i18n#readme",
   "devDependencies": {
-    "babel": "^5.8.23",
-    "babel-core": "^5.8.25",
-    "babel-eslint": "^4.1.3",
-    "eslint": "^1.7.2",
-    "eslint-config-airbnb": "^0.1.0"
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.25.0",
+    "babel-eslint": "*",
+    "babel-jest": "23.4.2",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-register": "^6.24.0",
+    "babel-runtime": "*",
+    "coveralls": "*",
+    "cross-env": "5.2.0",
+    "eslint": "^4.18.1",
+    "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-plugin-import": "^2.7.0",
+    "is": "^3.1.0",
+    "jest": "23.5.0",
+    "moment": "^2.10.6",
+    "rimraf": "*"
   },
   "peerDependencies": {
     "is": "^3.1.0",
     "moment": "^2.10.6"
   },
   "dependencies": {
-    "jed": "^1.1.0",
-    "sprintf-js": "1.1.1"
+    "gettext-extractor": "^3.3.2",
+    "jed": "^1.1.1",
+    "pot-merge": "^2.2.0",
+    "shelljs": "^0.8.2",
+    "yargs": "^12.0.2"
   },
   "files": [
+    "es/",
     "dist/"
   ],
+  "jest": {
+    "modulePaths": [
+      "<rootDir>/src",
+      "<rootDir>/node_modules"
+    ],
+    "verbose": true,
+    "moduleFileExtensions": [
+      "js"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    }
+  },
   "scripts": {
-    "build": "babel --optional runtime src -d dist",
-    "prepublish": "npm run build -s",
+    "clean": "npm run clean:dist && npm run clean:es",
+    "clean:dist": "$(npm bin)/rimraf dist",
+    "clean:es": "$(npm bin)/rimraf es",
+    "lint": "$(npm bin)/eslint src test",
+    "test": "cross-env BABEL_ENV=test $(npm bin)/jest",
+    "coverage": "$(npm bin)/nyc report && $(npm bin)/nyc report --reporter=html",
+    "coveralls": "$(npm bin)/nyc report --reporter=text-lcov | $(npm bin)/coveralls",
+    "prebuild": "npm run clean -s && npm run lint",
+    "build": "npm run build:umd && npm run build:es",
+    "build:umd": "cross-env BABEL_ENV=commonjs $(npm bin)/babel src -d dist --copy-files",
+    "build:es": "cross-env BABEL_ENV=es $(npm bin)/babel src -d es --copy-files",
+    "prepare": "npm run build -s",
+    "prepublishOnly": "npm run build -s",
     "patch": "npm version patch && npm publish",
     "minor": "npm version minor && npm publish",
     "major": "npm version major && npm publish",

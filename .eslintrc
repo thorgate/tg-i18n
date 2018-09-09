@@ -1,25 +1,24 @@
 {
     "parser": "babel-eslint",
-    "extends": "airbnb/base",
+    "extends": "eslint-config-airbnb-base",
     "env": {
-        "browser": true,
         "node": true,
-        "mocha": true
-    },
-    "globals": {
-        "chai": true,
-        "DJ_CONST": false
+        "es6": true
     },
     "rules": {
+        "max-len": ["error", 140, 2, {
+            "ignoreUrls": true,
+            "ignoreComments": false
+        }],
+        "arrow-body-style": ["error", "as-needed"],
+
         "quotes": [2, "single", "avoid-escape"],
-        "comma-dangle": [2, "never"],
         "brace-style": [0, "1tbs", {"allowSingleLine": true}],
         "no-underscore-dangle": 0,
         "func-names": 0,
-        "no-else-return": 0,
         "no-param-reassign": 0,
-        "no-reserved-keys": 0,
-        "no-console": 0,
+        "no-else-return": 0,
+        "no-template-curly-in-string": 0,
 
         "padded-blocks": [0, "never"],
         "indent": [2, 4]

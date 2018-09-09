@@ -1,9 +1,8 @@
 import is from 'is';
 import Jed from 'jed';
 import moment from 'moment';
-import {sprintf} from 'sprintf-js';
 
-import {getConfig, getLogger, onLanguageChange} from './config';
+import { getConfig, getLogger, onLanguageChange } from './config';
 
 
 class I18N {
@@ -35,12 +34,12 @@ class I18N {
         }
     }
 
-    forceLanguage(activeLanguage) {
+    forceLanguage = (activeLanguage) => {
         this.requestLanguage = activeLanguage || activeLanguage;
         this.setActiveLang(this.requestLanguage);
-    }
+    };
 
-    setActiveLang(theLanguage) {
+    setActiveLang = (theLanguage) => {
         if (!is.undef(this.localeData[theLanguage])) {
             if (this._activeLang !== theLanguage) {
                 if (!this.localeData[theLanguage]) {
@@ -53,8 +52,8 @@ class I18N {
                 this.$t = new Jed({
                     domain,
                     locale_data: {
-                        [domain]: JSON.parse(this.localeData[theLanguage] || '{}')
-                    }
+                        [domain]: JSON.parse(this.localeData[theLanguage] || '{}'),
+                    },
                 });
 
                 if (theLanguage !== this.requestLanguage) {
@@ -65,53 +64,53 @@ class I18N {
 
         // Also fix moment locale
         moment.locale(theLanguage === 'en-us' ? 'en-gb' : theLanguage);
-    }
+    };
 
-    gettext(key) {
+    gettext = (key) => {
         if (!this.$t) {
             return key;
         }
 
-        return this.$t.gettext.apply(this.$t, [].slice.call(arguments));
-    }
+        return this.$t.gettext(key);
+    };
 
-    pgettext(context, key) {
+    pgettext = (context, key) => {
         if (!this.$t) {
             return key;
         }
 
-        return this.$t.pgettext.apply(this.$t, [].slice.call(arguments));
-    }
+        return this.$t.pgettext(context, key);
+    };
 
-    ngettext(singularKey, pluralKey, value) {
+    ngettext = (singularKey, pluralKey, value) => {
         if (!this.$t) {
             return (value === 0 || value === 1) ? singularKey : pluralKey;
         }
 
-        return this.$t.ngettext.apply(this.$t, [].slice.call(arguments));
-    }
+        return this.$t.ngettext(singularKey, pluralKey, value);
+    };
 
-    npgettext(context, singularKey, pluralKey, value) {
+    npgettext = (context, singularKey, pluralKey, value) => {
         if (!this.$t) {
             return (value === 0 || value === 1) ? singularKey : pluralKey;
         }
 
-        return this.$t.npgettext.apply(this.$t, [].slice.call(arguments));
-    }
+        return this.$t.npgettext(context, singularKey, pluralKey, value);
+    };
 
-    interpolate(out) {
+    interpolate = (out, ...args) => {
         if (!this.$t) {
-            return sprintf(out, [].slice.call(arguments, 1));
+            return Jed.sprintf(out, ...args);
         }
 
-        return this.$t.sprintf.apply(this.$t, [].slice.call(arguments));
-    }
+        return this.$t.sprintf(this.$t, out, ...args);
+    };
 
     static initFromConfig() {
         return new I18N(
             getConfig('activeLanguage'),
             getConfig('languageCode'),
-            getConfig('localeData')
+            getConfig('localeData'),
         );
     }
 }
@@ -120,13 +119,13 @@ export default function makeI18n() {
     const i18n = I18N.initFromConfig();
 
     return {
-        i18n: i18n,
-        gettext: i18n.gettext.bind(i18n),
-        pgettext: i18n.pgettext.bind(i18n),
-        ngettext: i18n.ngettext.bind(i18n),
-        npgettext: i18n.npgettext.bind(i18n),
-        interpolate: i18n.interpolate.bind(i18n),
-        forceLanguage: i18n.forceLanguage.bind(i18n),
-        setActiveLang: i18n.setActiveLang.bind(i18n)
+        i18n,
+        gettext: i18n.gettext,
+        pgettext: i18n.pgettext,
+        ngettext: i18n.ngettext,
+        npgettext: i18n.npgettext,
+        interpolate: i18n.interpolate,
+        forceLanguage: i18n.forceLanguage,
+        setActiveLang: i18n.setActiveLang,
     };
 }

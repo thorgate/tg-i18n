@@ -1,0 +1,682 @@
+{
+    "ach": {
+        "name": "Acholi",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n > 1)"
+    },
+    "af": {
+        "name": "Afrikaans",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "ak": {
+        "name": "Akan",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n > 1)"
+    },
+    "am": {
+        "name": "Amharic",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n > 1)"
+    },
+    "an": {
+        "name": "Aragonese",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "ar": {
+        "name": "Arabic",
+        "numPlurals": 6,
+        "pluralForm": "nplurals = 6; plural = (n === 0 ? 0 : n === 1 ? 1 : n === 2 ? 2 : n % 100 >= 3 && n % 100 <= 10 ? 3 : n % 100 >= 11 ? 4 : 5)"
+    },
+    "arn": {
+        "name": "Mapudungun",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n > 1)"
+    },
+    "ast": {
+        "name": "Asturian",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "ay": {
+        "name": "Aymará",
+        "numPlurals": 1,
+        "pluralForm": "nplurals = 1; plural = 0"
+    },
+    "az": {
+        "name": "Azerbaijani",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "be": {
+        "name": "Belarusian",
+        "numPlurals": 3,
+        "pluralForm": "nplurals = 3; plural = (n % 10 === 1 && n % 100 !== 11 ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2)"
+    },
+    "bg": {
+        "name": "Bulgarian",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "bn": {
+        "name": "Bengali",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "bo": {
+        "name": "Tibetan",
+        "numPlurals": 1,
+        "pluralForm": "nplurals = 1; plural = 0"
+    },
+    "br": {
+        "name": "Breton",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n > 1)"
+    },
+    "brx": {
+        "name": "Bodo",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "bs": {
+        "name": "Bosnian",
+        "numPlurals": 3,
+        "pluralForm": "nplurals = 3; plural = (n % 10 === 1 && n % 100 !== 11 ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2)"
+    },
+    "ca": {
+        "name": "Catalan",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "cgg": {
+        "name": "Chiga",
+        "numPlurals": 1,
+        "pluralForm": "nplurals = 1; plural = 0"
+    },
+    "cs": {
+        "name": "Czech",
+        "numPlurals": 3,
+        "pluralForm": "nplurals = 3; plural = (n === 1 ? 0 : (n >= 2 && n <= 4) ? 1 : 2)"
+    },
+    "csb": {
+        "name": "Kashubian",
+        "numPlurals": 3,
+        "pluralForm": "nplurals = 3; plural = (n === 1 ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2)"
+    },
+    "cy": {
+        "name": "Welsh",
+        "numPlurals": 4,
+        "pluralForm": "nplurals = 4; plural = (n === 1 ? 0 : n === 2 ? 1 : (n !== 8 && n !== 11) ? 2 : 3)"
+    },
+    "da": {
+        "name": "Danish",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "de": {
+        "name": "German",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "doi": {
+        "name": "Dogri",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "dz": {
+        "name": "Dzongkha",
+        "numPlurals": 1,
+        "pluralForm": "nplurals = 1; plural = 0"
+    },
+    "el": {
+        "name": "Greek",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "en": {
+        "name": "English",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "eo": {
+        "name": "Esperanto",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "es": {
+        "name": "Spanish",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "et": {
+        "name": "Estonian",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "eu": {
+        "name": "Basque",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "fa": {
+        "name": "Persian",
+        "numPlurals": 1,
+        "pluralForm": "nplurals = 1; plural = 0"
+    },
+    "ff": {
+        "name": "Fulah",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "fi": {
+        "name": "Finnish",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "fil": {
+        "name": "Filipino",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n > 1)"
+    },
+    "fo": {
+        "name": "Faroese",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "fr": {
+        "name": "French",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n > 1)"
+    },
+    "fur": {
+        "name": "Friulian",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "fy": {
+        "name": "Frisian",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "ga": {
+        "name": "Irish",
+        "numPlurals": 5,
+        "pluralForm": "nplurals = 5; plural = (n === 1 ? 0 : n === 2 ? 1 : n < 7 ? 2 : n < 11 ? 3 : 4)"
+    },
+    "gd": {
+        "name": "Scottish Gaelic",
+        "numPlurals": 4,
+        "pluralForm": "nplurals = 4; plural = ((n === 1 || n === 11) ? 0 : (n === 2 || n === 12) ? 1 : (n > 2 && n < 20) ? 2 : 3)"
+    },
+    "gl": {
+        "name": "Galician",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "gu": {
+        "name": "Gujarati",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "gun": {
+        "name": "Gun",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n > 1)"
+    },
+    "ha": {
+        "name": "Hausa",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "he": {
+        "name": "Hebrew",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "hi": {
+        "name": "Hindi",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "hne": {
+        "name": "Chhattisgarhi",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "hr": {
+        "name": "Croatian",
+        "numPlurals": 3,
+        "pluralForm": "nplurals = 3; plural = (n % 10 === 1 && n % 100 !== 11 ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2)"
+    },
+    "hu": {
+        "name": "Hungarian",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "hy": {
+        "name": "Armenian",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "id": {
+        "name": "Indonesian",
+        "numPlurals": 1,
+        "pluralForm": "nplurals = 1; plural = 0"
+    },
+    "is": {
+        "name": "Icelandic",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n % 10 !== 1 || n % 100 === 11)"
+    },
+    "it": {
+        "name": "Italian",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "ja": {
+        "name": "Japanese",
+        "numPlurals": 1,
+        "pluralForm": "nplurals = 1; plural = 0"
+    },
+    "jbo": {
+        "name": "Lojban",
+        "numPlurals": 1,
+        "pluralForm": "nplurals = 1; plural = 0"
+    },
+    "jv": {
+        "name": "Javanese",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 0)"
+    },
+    "ka": {
+        "name": "Georgian",
+        "numPlurals": 1,
+        "pluralForm": "nplurals = 1; plural = 0"
+    },
+    "kk": {
+        "name": "Kazakh",
+        "numPlurals": 1,
+        "pluralForm": "nplurals = 1; plural = 0"
+    },
+    "km": {
+        "name": "Khmer",
+        "numPlurals": 1,
+        "pluralForm": "nplurals = 1; plural = 0"
+    },
+    "kn": {
+        "name": "Kannada",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "ko": {
+        "name": "Korean",
+        "numPlurals": 1,
+        "pluralForm": "nplurals = 1; plural = 0"
+    },
+    "ku": {
+        "name": "Kurdish",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "kw": {
+        "name": "Cornish",
+        "numPlurals": 4,
+        "pluralForm": "nplurals = 4; plural = (n === 1 ? 0 : n === 2 ? 1 : n === 3 ? 2 : 3)"
+    },
+    "ky": {
+        "name": "Kyrgyz",
+        "numPlurals": 1,
+        "pluralForm": "nplurals = 1; plural = 0"
+    },
+    "lb": {
+        "name": "Letzeburgesch",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "ln": {
+        "name": "Lingala",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n > 1)"
+    },
+    "lo": {
+        "name": "Lao",
+        "numPlurals": 1,
+        "pluralForm": "nplurals = 1; plural = 0"
+    },
+    "lt": {
+        "name": "Lithuanian",
+        "numPlurals": 3,
+        "pluralForm": "nplurals = 3; plural = (n % 10 === 1 && n % 100 !== 11 ? 0 : n % 10 >= 2 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2)"
+    },
+    "lv": {
+        "name": "Latvian",
+        "numPlurals": 3,
+        "pluralForm": "nplurals = 3; plural = (n % 10 === 1 && n % 100 !== 11 ? 0 : n !== 0 ? 1 : 2)"
+    },
+    "mai": {
+        "name": "Maithili",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "mfe": {
+        "name": "Mauritian Creole",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n > 1)"
+    },
+    "mg": {
+        "name": "Malagasy",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n > 1)"
+    },
+    "mi": {
+        "name": "Maori",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n > 1)"
+    },
+    "mk": {
+        "name": "Macedonian",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n === 1 || n % 10 === 1 ? 0 : 1)"
+    },
+    "ml": {
+        "name": "Malayalam",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "mn": {
+        "name": "Mongolian",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "mni": {
+        "name": "Manipuri",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "mnk": {
+        "name": "Mandinka",
+        "numPlurals": 3,
+        "pluralForm": "nplurals = 3; plural = (n === 0 ? 0 : n === 1 ? 1 : 2)"
+    },
+    "mr": {
+        "name": "Marathi",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "ms": {
+        "name": "Malay",
+        "numPlurals": 1,
+        "pluralForm": "nplurals = 1; plural = 0"
+    },
+    "mt": {
+        "name": "Maltese",
+        "numPlurals": 4,
+        "pluralForm": "nplurals = 4; plural = (n === 1 ? 0 : n === 0 || ( n % 100 > 1 && n % 100 < 11) ? 1 : (n % 100 > 10 && n % 100 < 20 ) ? 2 : 3)"
+    },
+    "my": {
+        "name": "Burmese",
+        "numPlurals": 1,
+        "pluralForm": "nplurals = 1; plural = 0"
+    },
+    "nah": {
+        "name": "Nahuatl",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "nap": {
+        "name": "Neapolitan",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "nb": {
+        "name": "Norwegian Bokmal",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "ne": {
+        "name": "Nepali",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "nl": {
+        "name": "Dutch",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "nn": {
+        "name": "Norwegian Nynorsk",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "no": {
+        "name": "Norwegian",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "nso": {
+        "name": "Northern Sotho",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "oc": {
+        "name": "Occitan",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n > 1)"
+    },
+    "or": {
+        "name": "Oriya",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "pa": {
+        "name": "Punjabi",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "pap": {
+        "name": "Papiamento",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "pl": {
+        "name": "Polish",
+        "numPlurals": 3,
+        "pluralForm": "nplurals = 3; plural = (n === 1 ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2)"
+    },
+    "pms": {
+        "name": "Piemontese",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "ps": {
+        "name": "Pashto",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "pt": {
+        "name": "Portuguese",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "rm": {
+        "name": "Romansh",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "ro": {
+        "name": "Romanian",
+        "numPlurals": 3,
+        "pluralForm": "nplurals = 3; plural = (n === 1 ? 0 : (n === 0 || (n % 100 > 0 && n % 100 < 20)) ? 1 : 2)"
+    },
+    "ru": {
+        "name": "Russian",
+        "numPlurals": 3,
+        "pluralForm": "nplurals = 3; plural = (n % 10 === 1 && n % 100 !== 11 ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2)"
+    },
+    "rw": {
+        "name": "Kinyarwanda",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "sah": {
+        "name": "Yakut",
+        "numPlurals": 1,
+        "pluralForm": "nplurals = 1; plural = 0"
+    },
+    "sat": {
+        "name": "Santali",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "sco": {
+        "name": "Scots",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "sd": {
+        "name": "Sindhi",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "se": {
+        "name": "Northern Sami",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "si": {
+        "name": "Sinhala",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "sk": {
+        "name": "Slovak",
+        "numPlurals": 3,
+        "pluralForm": "nplurals = 3; plural = (n === 1 ? 0 : (n >= 2 && n <= 4) ? 1 : 2)"
+    },
+    "sl": {
+        "name": "Slovenian",
+        "numPlurals": 4,
+        "pluralForm": "nplurals = 4; plural = (n % 100 === 1 ? 1 : n % 100 === 2 ? 2 : n % 100 === 3 || n % 100 === 4 ? 3 : 0)"
+    },
+    "so": {
+        "name": "Somali",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "son": {
+        "name": "Songhay",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "sq": {
+        "name": "Albanian",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "sr": {
+        "name": "Serbian",
+        "numPlurals": 3,
+        "pluralForm": "nplurals = 3; plural = (n % 10 === 1 && n % 100 !== 11 ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2)"
+    },
+    "su": {
+        "name": "Sundanese",
+        "numPlurals": 1,
+        "pluralForm": "nplurals = 1; plural = 0"
+    },
+    "sv": {
+        "name": "Swedish",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "sw": {
+        "name": "Swahili",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "ta": {
+        "name": "Tamil",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "te": {
+        "name": "Telugu",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "tg": {
+        "name": "Tajik",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n > 1)"
+    },
+    "th": {
+        "name": "Thai",
+        "numPlurals": 1,
+        "pluralForm": "nplurals = 1; plural = 0"
+    },
+    "ti": {
+        "name": "Tigrinya",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n > 1)"
+    },
+    "tk": {
+        "name": "Turkmen",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "tr": {
+        "name": "Turkish",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n > 1)"
+    },
+    "tt": {
+        "name": "Tatar",
+        "numPlurals": 1,
+        "pluralForm": "nplurals = 1; plural = 0"
+    },
+    "ug": {
+        "name": "Uyghur",
+        "numPlurals": 1,
+        "pluralForm": "nplurals = 1; plural = 0"
+    },
+    "uk": {
+        "name": "Ukrainian",
+        "numPlurals": 3,
+        "pluralForm": "nplurals = 3; plural = (n % 10 === 1 && n % 100 !== 11 ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2)"
+    },
+    "ur": {
+        "name": "Urdu",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "uz": {
+        "name": "Uzbek",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n > 1)"
+    },
+    "vi": {
+        "name": "Vietnamese",
+        "numPlurals": 1,
+        "pluralForm": "nplurals = 1; plural = 0"
+    },
+    "wa": {
+        "name": "Walloon",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n > 1)"
+    },
+    "wo": {
+        "name": "Wolof",
+        "numPlurals": 1,
+        "pluralForm": "nplurals = 1; plural = 0"
+    },
+    "yo": {
+        "name": "Yoruba",
+        "numPlurals": 2,
+        "pluralForm": "nplurals = 2; plural = (n !== 1)"
+    },
+    "zh": {
+        "name": "Chinese",
+        "numPlurals": 1,
+        "pluralForm": "nplurals = 1; plural = 0"
+    }
+}

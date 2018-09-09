@@ -2,16 +2,17 @@ import is from 'is';
 
 
 const cfg = {
-    domain: 'djangojs',
+    domain: 'messages',
     activeLanguage: null,
     languageCode: null,
     logger: console,
     localeData: {},
     onLanguageChange: () => {
         if (typeof window !== 'undefined') {
+            /* global window */
             window.location.reload();
         }
-    }
+    },
 };
 
 export const setConfig = (key, val) => {
@@ -30,10 +31,6 @@ export const getConfig = (key) => {
     return res;
 };
 
-export const getLogger = () => {
-    return cfg.logger;
-};
+export const getLogger = () => cfg.logger;
 
-export const onLanguageChange = (newLanguage) => {
-    return cfg.onLanguageChange(newLanguage);
-};
+export const onLanguageChange = newLanguage => cfg.onLanguageChange(newLanguage);

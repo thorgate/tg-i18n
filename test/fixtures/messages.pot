@@ -1,0 +1,47 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-09-09 19:47+0300\n"
+"PO-Revision-Date: 2018-09-09 19:47+0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: English\n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: Content-Transfer-Encoding\n"
+"Plural-Forms: nplurals = 2; plural = (n !== 1)\n"
+
+#: examples/parsing/translations.js:17
+#: examples/parsing/translations.js:22
+#: examples/parsing/translations.js:3
+msgid "Dummy test string"
+msgstr ""
+
+#: examples/parsing/translations.js:9
+msgid "There is %s more waybill"
+msgid_plural "There are %s more waybills"
+msgstr[0] ""
+msgstr[1] ""
+
+#: examples/parsing/translations.js:12
+msgctxt "list"
+msgid "There is %(waybillCount)s more waybill"
+msgid_plural "There are %(waybillCount)s more waybills"
+msgstr[0] ""
+msgstr[1] ""
+
+#: examples/parsing/translations.js:6
+msgctxt "test"
+msgid "Dummy test string"
+msgstr ""
+
+#: templates/registration/password_reset_confirm.html:23
+msgid ""
+"\n"
+"            The password reset link was invalid, possibly because it has "
+"already been used.\n"
+"            Please request a <a href=\"%(password_reset_url)s\">new password "
+"reset</a>.\n"
+"            "
+msgstr ""
