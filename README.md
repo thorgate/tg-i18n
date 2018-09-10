@@ -1,17 +1,9 @@
 # tg-i18n
 
-### TODOs:
-
-- Pot to Po transform
-- Compilemessage kinda script / export 
-- Tests
-- Documentation
-- Travis integration for auto-publish support
-
 > Internal tool to use translations in React that are loaded from our Django backend
 
 Example init:
-    
+
     // i18n.js
     import makeI18n, {setConfig} from 'tg-i18n';
     
@@ -25,7 +17,7 @@ Example init:
         'en': {
             // translation strings
         },
-    }; 
+    };
     
     setConfig('languageCode', LANGUAGE_CODE);
     setConfig('localeData', LOCALE_DATA || {});
@@ -38,7 +30,7 @@ Example init:
     export default i18n;
 
 Using:
-    
+
     import i18n, {gettext} from './i18n';
     
     i18n.setActiveLang('en');

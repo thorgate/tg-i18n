@@ -1,4 +1,5 @@
 import fs from 'fs';
+import path from 'path';
 import shell from 'shelljs';
 import moment from 'moment';
 import { run as potMerge } from 'pot-merge';
@@ -8,7 +9,10 @@ import { getLogger } from '../config';
 import plurals from '../plurals.json';
 
 
-class MakeMessages {
+const getDirectories = p => fs.readdirSync(p).filter(f => fs.statSync(path.join(p, f)).isDirectory());
+
+
+class Index {
     constructor(options = {}) {
         this.domain = options.domain;
         this.path = options.path;
@@ -18,7 +22,7 @@ class MakeMessages {
 
         this.potFile = `${this.localeDir}/${this.domain}.pot`;
 
-        this.languages = this.validateLanguages(
+        this.languages = this.getValidLanguages(
             options.locale, options.exclude, options.all,
         );
         this.plurals = plurals;
@@ -48,7 +52,7 @@ class MakeMessages {
         }
     }
 
-    validateLanguages(locales = [], excludes = [], all) {
+    getValidLanguages(locales = [], excludes = [], all) {
         const localesExist = fs.existsSync(this.localeDir);
 
         let languages = [];
@@ -57,10 +61,11 @@ class MakeMessages {
             throw new Error(`Locale directory "${this.localeDir}" does not exist.`);
         }
 
-        if (all) {
-            languages = shell.ls(this.localeDir);
-            languages = languages.filter(language => !excludes.includes(language));
+        if (localesExist) {
+            languages = getDirectories(this.localeDir);
         }
+
+        languages = languages.filter(language => !excludes.includes(language));
 
         // Add specified locales
         locales.forEach((locale) => {
@@ -100,6 +105,11 @@ class MakeMessages {
         // Ensure locale directory is created
         shell.mkdir('-p', this.localeDir);
 
+        // TODO - create all dir's needed
+        if (!fs.existsSync(this.localeDir)) {
+            fs.mkdirSync(this.localeDir);
+        }
+
         const extractor = this.processFiles();
 
         this.languages.forEach((language) => {
@@ -118,12 +128,19 @@ class MakeMessages {
         getLogger().log(`Processing locale ${language}`);
         const languageDir = `${this.localeDir}/${language}/LC_MESSAGES`;
         const poFile = `${languageDir}/${this.domain}.po`;
-        const isNewLocale = !fs.existsSync(poFile);
         const poHeader = this.getHeader(language);
+
+        const messages = extractor.getMessages();
+
+        const invalidMessage = messages.find(message => !message.text);
+
+        if (invalidMessage) {
+            throw new Error(`Message "" is invalid, used in files: ${invalidMessage.references.join()}`);
+        }
 
         extractor.savePotFile(this.potFile, poHeader);
 
-        if (isNewLocale) {
+        if (!fs.existsSync(poFile)) {
             shell.mkdir('-p', languageDir);
             extractor.savePotFile(poFile, poHeader);
         }
@@ -183,4 +200,4 @@ class MakeMessages {
 }
 
 
-export default MakeMessages;
+export default Index;

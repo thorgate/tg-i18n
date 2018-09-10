@@ -1,9 +1,16 @@
+#: examples/parsing/translations.js:23
+#: examples/parsing/translations.js:25
+msgid "Dummy \"test\" string"
+msgstr ""
+
 #: examples/parsing/translations.js:17
 #: examples/parsing/translations.js:3
 #: examples/parsing/translations.js:22
+#: examples/parsing/translations.js:24
 msgid "Dummy test string"
 msgstr ""
 
+#: examples/parsing/translations.js:26
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,6 +35,14 @@ msgid "There is %s more waybill"
 msgid_plural "There are %s more waybills"
 msgstr[0] ""
 msgstr[1] ""
+
+
+
+
+
+
+
+
 
 
 

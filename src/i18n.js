@@ -1,3 +1,6 @@
+/**
+ * @module tg-i18n/i18n
+ */
 import is from 'is';
 import Jed from 'jed';
 import moment from 'moment';
@@ -5,7 +8,14 @@ import moment from 'moment';
 import { getConfig, getLogger, onLanguageChange } from './config';
 
 
-class I18N {
+/**
+ * Translation instance to be used for translating messages.
+ *   An instance of this class is returned by {@link module:tg-i18n.i18n.makeI18n}.
+ *
+ * @class
+ * @memberof module:tg-i18n.i18n
+ */
+export class I18N {
     constructor(activeLanguage, defaultLanguage, localeData) {
         if (process.env.NODE_ENV !== 'production') {
             if (!is.object(localeData) || Object.keys(localeData).length === 0) {
@@ -98,13 +108,9 @@ class I18N {
         return this.$t.npgettext(context, singularKey, pluralKey, value);
     };
 
-    interpolate = (out, ...args) => {
-        if (!this.$t) {
-            return Jed.sprintf(out, ...args);
-        }
-
-        return this.$t.sprintf(this.$t, out, ...args);
-    };
+    interpolate = (out, ...args) => (
+        Jed.sprintf(out, ...args)
+    );
 
     static initFromConfig() {
         return new I18N(
@@ -115,7 +121,23 @@ class I18N {
     }
 }
 
-export default function makeI18n() {
+
+/**
+ * Create I18N instance from config and return directly usable functions.
+ * @returns {{
+ *   i18n: module:tg-i18n.i18n.I18N,
+ *   gettext: module:tg-i18n.i18n.I18N.gettext,
+ *   pgettext: module:tg-i18n.i18n.I18N.pgettext,
+ *   ngettext: module:tg-i18n.i18n.I18N.ngettext,
+ *   npgettext: module:tg-i18n.i18n.I18N.npgettext,
+ *   interpolate: (function(*=, ...[*]): *),
+ *   forceLanguage: module:tg-i18n.i18n.I18N.forceLanguage,
+ *   setActiveLang: module:tg-i18n.i18n.I18N.setActiveLang
+ * }}
+ * @function makeI18n
+ * @memberof module:tg-i18n.i18n
+ */
+function makeI18n() {
     const i18n = I18N.initFromConfig();
 
     return {
@@ -129,3 +151,5 @@ export default function makeI18n() {
         setActiveLang: i18n.setActiveLang,
     };
 }
+
+export default makeI18n;

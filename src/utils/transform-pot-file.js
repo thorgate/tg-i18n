@@ -1,3 +1,4 @@
+/* eslint-disable */
 /* eslint no-bitwise: ["error", { "int32Hint": true }] */
 /*
 This script is based of https://github.com/laget-se/pot-merge/blob/master/pot-merge.js

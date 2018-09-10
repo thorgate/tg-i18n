@@ -19,4 +19,8 @@ function translated_component_test() {
 }
 
 
-const test = gettext('Dummy test string');
+console.log(gettext('Dummy test string'));
+console.log(gettext('Dummy "test" string'));
+
+// Test empty string
+// console.log(gettext(''));

@@ -1,5 +1,5 @@
 #! /usr/bin/env node
-const MakeMessages = require('./utils/makemessages').default;
+const MakeMessages = require('./index').default;
 
 
 const argv = require('yargs')
@@ -65,8 +65,8 @@ const argv = require('yargs')
     .argv;
 
 try {
-    const makeMessages = new MakeMessages(argv);
-    makeMessages.process();
+    const cli = new MakeMessages(argv);
+    cli.process();
 } catch (e) {
     console.error(`${e}`);
 }
