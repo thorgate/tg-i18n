@@ -1,4 +1,3 @@
-
 /* eslint-disable */
 import fs from 'fs';
 
@@ -6,14 +5,11 @@ import Message from './message';
 import PoFile, { FILE_TYPE } from './pofile';
 
 
+export { FILE_TYPE } from './pofile';
+
+
 class Parser {
     LEXERS = [
-        // Match translator comments
-        {
-            key: 'comments',
-            test: /^# (.*)$/,
-        },
-
         // Match extracted comments
         {
             key: 'extractedComments',
@@ -30,6 +26,12 @@ class Parser {
         {
             key: 'flags',
             test: /^#, (.*)$/,
+        },
+
+        // Match .po comments
+        {
+            key: 'comments',
+            test: /^#[ ]?(.*)?$/,
         },
 
         // Match message context
@@ -71,25 +73,11 @@ class Parser {
     ];
 
     constructor(fileData) {
-        this._lines = fileData.split(/\r?\n/).reverse();
+        this._lines = fileData.split(/\r?\n/);
     }
 
     parse() {
-        /* to Handle
-#  translator-comments
-#. extracted-comments
-#: reference…
-#, javascript-format fuzzy
-#| msgid previous-untranslated-string-singular
-#| msgid_plural previous-untranslated-string-plural
-msgid untranslated-string-singular
-msgid_plural untranslated-string-plural
-msgstr[0] translated-string-case-0
-...
-msgstr[N] translated-string-case-n
-         */
-
-        return new PoFile(this._processMessages(), FILE_TYPE.PO_FILE);
+        return new PoFile(this._processMessages());
     }
 
     /**
@@ -125,10 +113,6 @@ msgstr[N] translated-string-case-n
 
             const match = line.match(matchingLexer.test);
 
-            if (matchingLexer.key !== undefined) {
-                lastMatchingKey = matchingLexer.key;
-            }
-
             const key = matchingLexer.key !== undefined ? matchingLexer.key : lastMatchingKey;
 
             if (matchingLexer.multi) {
@@ -148,8 +132,10 @@ msgstr[N] translated-string-case-n
                     messageObject[key] = [];
                 }
 
-                messageObject[key].push(match[1]);
+                messageObject[key].push((match[1] || ''));
             }
+
+            lastMatchingKey = key;
         }
 
         Object.keys(messageObject).forEach((key) => {
@@ -158,26 +144,7 @@ msgstr[N] translated-string-case-n
             }
         });
 
-        // console.log(messageObject);
-
         return new Message(messageObject);
-    }
-
-    /**
-     * Process lines until single message is found.
-     * @returns {module:tg-i18n.po-parser.Message}
-     * @private
-     */
-    _processMessage() {
-        const messageLines = [];
-        let line = this._lines.pop();
-
-        // Process until line is valid
-        while (line) {
-            messageLines.push(line);
-            line = this._lines.pop();
-        }
-        return this._parseMessage(messageLines);
     }
 
     /**
@@ -187,11 +154,18 @@ msgstr[N] translated-string-case-n
      */
     _processMessages() {
         const messages = [];
-        let message = null;
-        while (this._lines.length > 0) {
-            message = this._processMessage();
-            messages.push(message);
+
+        let messageLines = [];
+
+        for (let line of this._lines) {
+            if (!line) {
+                messages.push(this._parseMessage(messageLines));
+                messageLines = [];
+            } else {
+                messageLines.push(line);
+            }
         }
+
         return messages;
     }
 

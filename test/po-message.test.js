@@ -35,7 +35,6 @@ describe('Message formatting', () => {
             'msgid "message"',
             'msgstr "translation"',
             '',
-            '',
         ].join('\n');
         expect(`${message}`).toEqual(expected);
     });
@@ -52,7 +51,6 @@ describe('Message formatting', () => {
             'msgid_plural "messages"',
             'msgstr[0] "translation"',
             'msgstr[1] "translations"',
-            '',
             '',
         ].join('\n');
         expect(`${message}`).toEqual(expected);
@@ -71,7 +69,6 @@ describe('Message formatting', () => {
             'msgstr "translation0\\n"',
             '"translation1\\n"',
             '"translation2\\n"',
-            '',
             '',
         ].join('\n');
 
@@ -102,7 +99,6 @@ describe('Message formatting', () => {
             '"translations1\\n"',
             '"translations2\\n"',
             '',
-            '',
         ].join('\n');
         expect(`${message}`).toEqual(expected);
     });
@@ -129,10 +125,9 @@ describe('Message formatting', () => {
             '#: somefile.js:12',
             '#: somefile.js:14',
             '#, javascript-format',
-            'msgctx "test"',
+            'msgctxt "test"',
             'msgid "message %s"',
             'msgstr "translation %s"',
-            '',
             '',
         ].join('\n');
         expect(`${message}`).toEqual(expected);
@@ -161,12 +156,11 @@ describe('Message formatting', () => {
             '#: somefile.js:12',
             '#: somefile.js:14',
             '#, javascript-format',
-            'msgctx "test"',
+            'msgctxt "test"',
             'msgid "message %s"',
             'msgid_plural "messages %s"',
             'msgstr[0] "translation %s"',
             'msgstr[1] "translations %s"',
-            '',
             '',
         ].join('\n');
         expect(`${message}`).toEqual(expected);

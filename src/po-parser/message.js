@@ -21,13 +21,13 @@ class MessageHelper {
         if (Array.isArray(data)) {
             data.forEach((value, idx) => {
                 if (!multiLine || (multiLine && idx === 0)) {
-                    this.lines.push(`${identifier} ${withQuotes(value, quotes)}`);
+                    this.lines.push(`${identifier} ${withQuotes(value, quotes)}`.trimRight());
                 } else {
-                    this.lines.push(`${withQuotes(value, quotes)}`);
+                    this.lines.push(`${withQuotes(value, quotes)}`.trimRight());
                 }
             });
         } else {
-            this.lines.push(`${identifier} ${withQuotes(data, quotes)}`);
+            this.lines.push(`${identifier} ${withQuotes(data, quotes)}`.trimRight());
         }
 
         return this;
@@ -40,7 +40,7 @@ class MessageHelper {
 
 
 /**
- * @typedef {Object} MessageObject
+ * @typedef {Object} tg-i18n.po-parser.message.MessageObject
  * @property {string|string[]} msgId
  * @property {string|string[]} [msgIdPlural]
  * @property {string|string[]|string[][]} msgStr
@@ -49,6 +49,7 @@ class MessageHelper {
  * @property {string[]} [extractedComments]
  * @property {string[]} [comments]
  * @property {string[]} [flags]
+ * @memberof module:tg-i18n.po-parser.message
  */
 
 
@@ -62,15 +63,15 @@ class Message {
      * Create new message container from {@link MessageObject}
      * @param {...MessageObject} message
      */
-    constructor(message = {}) {
+    constructor(message) {
         const {
             msgId,
             msgIdPlural = [],
             msgStr,
             msgCtx = '',
             references = [],
-            comments = [],
             extractedComments = [],
+            comments = [],
             flags = [],
         } = message;
 
@@ -79,8 +80,8 @@ class Message {
         this.messageString = msgStr || '';
         this.messageContext = msgCtx || '';
         this.references = references || [];
-        this.comments = extractedComments || [];
-        this.translatorComments = comments || [];
+        this.comments = comments || [];
+        this.extractedComments = extractedComments || [];
         this.flags = flags || [];
 
         // Organize references
@@ -127,18 +128,14 @@ class Message {
      * @returns {number}
      */
     static compare(messageA, messageB) {
-        if (messageA.isHeader && !messageB.isHeader) {
-            return -1;
-        } else if (!messageA.isHeader && messageB.isHeader) {
-            return 1;
+        const comparingHeader = messageA.isHeader || messageB.isHeader;
+
+        if (comparingHeader) {
+            return (messageA.isHeader && !messageB.isHeader) ? -1 : 1;
         }
 
         return messageA.hash - messageB.hash;
     }
-
-    // merge(messageB) {
-    //
-    // }
 
     toString() {
         const helper = new MessageHelper();
