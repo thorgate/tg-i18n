@@ -2,10 +2,10 @@ import fs from 'fs';
 import path from 'path';
 import shell from 'shelljs';
 import moment from 'moment';
-import { run as potMerge } from 'pot-merge';
 import { GettextExtractor, JsExtractors } from 'gettext-extractor';
 
 import { getLogger } from '../config';
+import * as msgmerge from '../msgmerge';
 import plurals from '../plurals.json';
 
 
@@ -146,9 +146,15 @@ class Index {
         }
 
         // const poContents = mergePotContents(this.potFile, poFile);
-        potMerge(poFile, this.potFile, poFile);
-        // console.log(poContents);
-        // fs.writeFileSync(poFile, poContents, { mode: 0o766 });
+        const poContents = msgmerge.toString(
+            msgmerge.merge(
+                msgmerge.parseFile(this.potFile),
+                msgmerge.parseFile(poFile),
+                { language },
+            ),
+        );
+        console.log(poContents);
+        fs.writeFileSync(poFile, poContents, { mode: 0o766 });
     }
 
     processFiles() {

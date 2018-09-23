@@ -67,6 +67,7 @@ const argv = require('yargs')
 try {
     const cli = new MakeMessages(argv);
     cli.process();
-} catch (e) {
-    console.error(`${e}`);
+} catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('%s', error.stack);
 }

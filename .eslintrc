@@ -1,6 +1,12 @@
 {
     "parser": "babel-eslint",
-    "extends": "eslint-config-airbnb-base",
+    "extends": [
+        "eslint-config-airbnb-base",
+        "plugin:flowtype/recommended"
+    ],
+    "plugins": [
+        "flowtype"
+    ],
     "env": {
         "node": true,
         "es6": true
@@ -21,6 +27,19 @@
         "no-template-curly-in-string": 0,
 
         "padded-blocks": [0, "never"],
-        "indent": [2, 4]
+        "indent": [2, 4],
+
+        // Flow types
+        "flowtype/boolean-style": [2, "boolean"],
+        "flowtype/generic-spacing": [2, "never"],
+        "flowtype/define-flow-type": 1,
+        "flowtype/use-flow-type": 1,
+        "flowtype/object-type-delimiter": [2, "comma"],
+        "flowtype/space-after-type-colon": [2, "always"],
+    },
+    "settings": {
+        "flowtype": {
+            "onlyFilesWithFlowAnnotation": false
+        }
     }
 }
