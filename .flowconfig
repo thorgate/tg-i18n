@@ -3,6 +3,7 @@
 [include]
 
 [libs]
+flow-typed
 
 [lints]
 
@@ -12,6 +13,8 @@ emoji=true
 module.system=haste
 
 munge_underscores=true
+
+esproposal.optional_chaining=enable
 
 module.file_ext=.js
 module.file_ext=.jsx

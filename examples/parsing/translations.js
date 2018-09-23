@@ -2,7 +2,7 @@
 
 console.log(gettext(`Dummy test string ${1}`));
 console.log(gettext('Dummy test string'));
-console.log(gettext('Dummy test string ' + 'Dummy test string'));
+console.log(gettext('Dummy test string Dummy test string'));
 console.log(pgettext('test', 'Dummy test string'));
 
 const waybillCount = 1;

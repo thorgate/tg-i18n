@@ -1,10 +1,10 @@
 import fs from 'fs';
 import path from 'path';
 import shell from 'shelljs';
-import moment from 'moment';
+import format from 'date-fns/format';
 import { GettextExtractor, JsExtractors } from 'gettext-extractor';
 
-import { getLogger } from '../config';
+import { getLogger } from '../i18n/config';
 import * as msgmerge from '../msgmerge';
 import plurals from '../plurals.json';
 
@@ -12,7 +12,7 @@ import plurals from '../plurals.json';
 const getDirectories = p => fs.readdirSync(p).filter(f => fs.statSync(path.join(p, f)).isDirectory());
 
 
-class Index {
+class Makemessages {
     constructor(options = {}) {
         this.domain = options.domain;
         this.path = options.path;
@@ -82,18 +82,20 @@ class Index {
             throw new Error(`"${language}" missing a plural form definition`);
         }
 
+        const languageData = this.plurals[language];
+
         return {
             'Project-Id-Version': 'PACKAGE VERSION',
             'Report-Msgid-Bugs-To': '',
-            'POT-Creation-Date': moment().format('YYYY-MM-DD HH:mmZZ'),
-            'PO-Revision-Date': moment().format('YYYY-MM-DD HH:mmZZ'),
+            'POT-Creation-Date': format(new Date(), 'YYYY-MM-DD HH:mmZZ'),
+            'PO-Revision-Date': format(new Date(), 'YYYY-MM-DD HH:mmZZ'),
             'Last-Translator': 'FULL NAME <EMAIL@ADDRESS>',
-            'Language-Team': 'LANGUAGE <LL@li.org>',
-            Language: this.plurals[language].name,
+            'Language-Team': `${languageData.name} <LL@li.org>`,
+            Language: languageData.code,
             'MIME-Version': '1.0',
             'Content-Transfer-Encoding': 'Content-Transfer-Encoding',
-            'Content-Type': 'text/plain; charset=UTF-8',
-            'Plural-Forms': this.plurals[language].pluralForm,
+            'Content-Type': 'text/plain; charset=utf-8',
+            'Plural-Forms': languageData.pluralForm,
         };
     }
 
@@ -145,7 +147,6 @@ class Index {
             extractor.savePotFile(poFile, poHeader);
         }
 
-        // const poContents = mergePotContents(this.potFile, poFile);
         const poContents = msgmerge.toString(
             msgmerge.merge(
                 msgmerge.parseFile(this.potFile),
@@ -153,7 +154,8 @@ class Index {
                 { language },
             ),
         );
-        console.log(poContents);
+
+        // Write to po file
         fs.writeFileSync(poFile, poContents, { mode: 0o766 });
     }
 
@@ -206,4 +208,4 @@ class Index {
 }
 
 
-export default Index;
+export default Makemessages;

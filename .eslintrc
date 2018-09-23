@@ -5,13 +5,17 @@
         "plugin:flowtype/recommended"
     ],
     "plugins": [
-        "flowtype"
+        "flowtype",
+        "react"
     ],
     "env": {
         "node": true,
         "es6": true
     },
     "rules": {
+        "react/jsx-indent": ["error", 4],
+        "react/jsx-indent-props": ["error", 4],
+
         "max-len": ["error", 140, 2, {
             "ignoreUrls": true,
             "ignoreComments": false
@@ -19,6 +23,8 @@
         "arrow-body-style": ["error", "as-needed"],
 
         "quotes": [2, "single", "avoid-escape"],
+        "jsx-quotes": [2, "prefer-double"],
+
         "brace-style": [0, "1tbs", {"allowSingleLine": true}],
         "no-underscore-dangle": 0,
         "func-names": 0,

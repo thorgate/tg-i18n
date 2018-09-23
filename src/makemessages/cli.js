@@ -1,8 +1,9 @@
 #! /usr/bin/env node
+const yargs = require('yargs');
 const MakeMessages = require('./index').default;
 
 
-const argv = require('yargs')
+const { argv } = yargs
     .usage('Usage: $0 [options]')
     .scriptName('i18n-makemessages')
     .option('path', {
@@ -25,8 +26,8 @@ const argv = require('yargs')
     .option('exclude', {
         array: true,
         alias: 'x',
-        description: 'Locales to exclude. Can be used multiple times. ' +
-            'If "locale" and exclude are both specified',
+        description: 'Locales to exclude. Can be used multiple times. '
+            + 'If "locale" and exclude are both specified',
         type: 'string',
     })
     .option('extension', {
@@ -61,8 +62,7 @@ const argv = require('yargs')
     .epilog('for more information visit https://github.com/thorgate/tg-i18n')
     .group([
         'path', 'domain', 'locale', 'exclude', 'extension', 'locale-dir', 'show-pot', 'keep-pot', 'all',
-    ], 'Message options:')
-    .argv;
+    ], 'Message options:');
 
 try {
     const cli = new MakeMessages(argv);

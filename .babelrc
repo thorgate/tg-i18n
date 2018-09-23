@@ -2,43 +2,37 @@
     "env": {
         "commonjs": {
             "presets": [
-                "es2015"
+                "@babel/preset-env", "@babel/react", "@babel/preset-flow"
             ],
             "plugins": [
-                "transform-runtime",
-                "transform-class-properties",
-                "transform-object-rest-spread",
-                "transform-flow-strip-types"
+                "@babel/transform-runtime",
+                "@babel/plugin-proposal-class-properties",
+                "@babel/plugin-proposal-object-rest-spread",
+                "@babel/plugin-proposal-optional-chaining"
             ]
         },
         "es": {
             "presets": [
-                ["es2015", {
+                ["@babel/preset-env", {
                     "loose": false,
                     "modules": false
-                }]
+                }], "@babel/react", "@babel/preset-flow"
             ],
             "plugins": [
-                "transform-runtime",
-                "transform-class-properties",
-                "transform-object-rest-spread",
-                "transform-flow-strip-types"
+                "@babel/transform-runtime",
+                "@babel/plugin-proposal-class-properties",
+                "@babel/plugin-proposal-object-rest-spread",
+                "@babel/plugin-proposal-optional-chaining"
             ]
         },
         "test": {
             "presets": [
-                "es2015"
+                "@babel/preset-env", "@babel/react", "@babel/preset-flow"
             ],
             "plugins": [
-                "transform-class-properties",
-                "transform-object-rest-spread",
-                "transform-flow-strip-types",
-                ["istanbul", {
-                    "exclude": [
-                        "**/test/*.js",
-                        "test-server.js"
-                    ]
-                }]
+                "@babel/plugin-proposal-class-properties",
+                "@babel/plugin-proposal-object-rest-spread",
+                "@babel/plugin-proposal-optional-chaining"
             ]
         }
     }
