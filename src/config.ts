@@ -9,6 +9,7 @@ export const DefaultCatalogue = {
     locales: {},
 };
 
+
 const config: I18NConfig = {
     activeLanguage: null,
     defaultLanguage: null,
@@ -16,15 +17,20 @@ const config: I18NConfig = {
     translationEngine: null,
 };
 
-export const setConfig = (key: string, val: string) => {
+
+export const setConfig = (key: string, val: any) => {
     config[key] = val;
 };
+
 
 export const getConfig = (key: string): any => {
     return config[key];
 };
 
-export const activateLanguage = (languageCode: string | null, force: boolean = false) => {
+
+export const activateLanguage = (
+    languageCode: string | null, force: boolean = false, callBack?: (languageCode: string) => void,
+) => {
     if (!languageCode) {
         config.translationEngine = null;
         return;
@@ -45,8 +51,15 @@ export const activateLanguage = (languageCode: string | null, force: boolean = f
                 [config.localeCatalogue.domain]: localeData,
             },
         });
+
+        if (callBack) {
+            callBack(languageCode);
+        }
     }
 };
+
+
+export const gettextNoop = (key: string) => key;
 
 
 export const gettext = (key: string): string => {
@@ -85,11 +98,11 @@ export const npgettext = (context: string, singular: string, plural: string, val
 };
 
 
-export const interpolate = (format: string, ...args: any[]) => {
+export const interpolate = (format: string, ...args: any[]): string => {
     if (args.length > 1 && typeof args[0] !== 'object') {
         // add warning if positional args are used
         // translators cannot move arguments around to provide better translations
     }
 
-    Jed.sprintf(format, ...args)
+    return Jed.sprintf(format, ...args);
 };

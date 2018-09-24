@@ -64,6 +64,7 @@
   "dependencies": {
     "create-react-context": "0.2.3",
     "date-fns": "1.29.0",
+    "events": "3.0.0",
     "gettext-extractor": "3.3.2",
     "gettext-parser": "2.0.0",
     "hoist-non-react-statics": "3.0.1",
