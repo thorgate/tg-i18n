@@ -1,11 +1,9 @@
-.DS_Store
-logs
-*.log
 node_modules
 dist
-es
-tmp
+compiled
 coverage
-npm-debug.log
+*.log
 .vscode
 .idea/
+*.orig
+.DS_Store
