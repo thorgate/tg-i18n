@@ -3,6 +3,7 @@ import Jed from 'jed';
 
 
 export type LocaleData = {
+    [key: string]: string[],
 };
 
 
@@ -35,7 +36,7 @@ export type I18NConfig = I18nAttributes & {
 };
 
 
-export type I18nProviderState = {
+export type I18nProps = {
     activeLanguage: string | null,
     gettext: (key: string) => string,
     pgettext: (context: string, key: string) => string,
@@ -47,7 +48,7 @@ export type I18nProviderState = {
 
 
 export type I18nContext = {
-    i18n: I18nProviderState,
+    i18n: I18nProps,
 };
 
 
@@ -66,4 +67,71 @@ export interface RenderProps<T> {
      * Children render function <Translated name>{props => ...}</Translated>)
      */
     children?: ((props: T) => React.ReactNode);
+}
+
+
+export type MergeOptionType = {
+    language: string,
+};
+
+export type MakeMessageOptions = {
+    domain: string;
+    path: string;
+    extension: string[];
+    locale: string[];
+    exclude: string[];
+    all: boolean;
+    'keep-pot': boolean;
+    'locale-dir': string,
+    [key: string]: string | string[] | boolean;
+}
+
+export type TranslationType = {
+    msgctxt?: string,
+    msgid: string,
+    msgid_plural?: string,
+    msgstr: Array<string>,
+    comments: {
+        translator?: string,
+        reference?: string,
+        extracted?: string,
+        flag?: string,
+        previous?: string,
+    },
+};
+
+export type CatalogueHeaders = {
+    'content-type'?: string,
+    'project-id-version'?: string,
+    'report-msgid-bugs-to'?: string,
+    'pot-creation-date'?: string,
+    'po-revision-date'?: string,
+    'last-translator'?: string,
+    'language-team'?: string,
+    'language'?: string,
+    'mime-version'?: string,
+    'content-transfer-encoding'?: string,
+    'plural-forms'?: string,
+    [key: string]: any,
+};
+
+export type CatalogueType = {
+    charset: string,
+    headers?: CatalogueHeaders,
+
+    translations: {
+        [context: string]: {
+            [key: string]: TranslationType,
+        },
+    },
+};
+
+
+export interface Plurals {
+    [languageCode: string]: {
+        'code': string;
+        'name': string;
+        'numPlurals': number;
+        'pluralForm': string;
+    };
 }

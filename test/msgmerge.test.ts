@@ -29,7 +29,7 @@ describe('MsgMerge', () => {
         const potFile = loadFixture('messages.pot');
 
         const merged = MsgMerge.merge(
-            MsgMerge.parse(potFile), '', { language: 'en' },
+            MsgMerge.parse(potFile), {charset: 'utf8', translations: {}}, { language: 'en' },
         );
         expect(MsgMerge.toString(merged)).toEqual(loadFixture('new-messages.po'));
     });
@@ -38,7 +38,7 @@ describe('MsgMerge', () => {
         const potFile = loadFixture('messages-ru.pot');
 
         const merged = MsgMerge.merge(
-            MsgMerge.parse(potFile), '', { language: 'ru' },
+            MsgMerge.parse(potFile), {charset: 'utf8', translations: {}}, { language: 'ru' },
         );
         expect(MsgMerge.toString(merged)).toEqual(loadFixture('new-messages-ru.po'));
     });

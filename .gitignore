@@ -7,3 +7,5 @@ coverage
 .idea/
 *.orig
 .DS_Store
+
+*_cache/

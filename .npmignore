@@ -10,3 +10,5 @@ coverage
 npm-debug.log
 .vscode
 .idea
+
+dist/*_cache/

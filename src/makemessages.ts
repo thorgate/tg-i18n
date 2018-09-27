@@ -1,19 +1,71 @@
 import fs from 'fs';
 import path from 'path';
-import shell from 'shelljs';
-import format from 'date-fns/format';
+import { format } from 'date-fns';
 import { GettextExtractor, JsExtractors } from 'gettext-extractor';
+import { IMessage } from 'gettext-extractor/dist/builder';
 
-import { getLogger } from '../i18n/config';
-import * as msgmerge from '../msgmerge';
-import plurals from '../plurals.json';
+import * as msgmerge from './msgmerge';
+import { MakeMessageOptions } from './types';
+import { hasKey } from './utils';
+import * as plurals from './plurals.json';
 
 
-const getDirectories = p => fs.readdirSync(p).filter(f => fs.statSync(path.join(p, f)).isDirectory());
+const getDirectories = (p: string) => (
+    fs.readdirSync(p).filter(f => fs.statSync(path.join(p, f)).isDirectory())
+);
+
+function getDefaultHeader(language: string) {
+    if (!hasKey(plurals, language)) {
+        throw new Error(`"${language}" missing a plural form definition`);
+    }
+
+    const languageData = plurals[language];
+
+    return {
+        'Project-Id-Version': 'PACKAGE VERSION',
+        'Report-Msgid-Bugs-To': '',
+        'POT-Creation-Date': format(new Date(), 'YYYY-MM-DD HH:mmZZ'),
+        'PO-Revision-Date': format(new Date(), 'YYYY-MM-DD HH:mmZZ'),
+        'Last-Translator': 'FULL NAME <EMAIL@ADDRESS>',
+        'Language-Team': `${languageData.name} <LL@li.org>`,
+        Language: languageData.code,
+        'MIME-Version': '1.0',
+        'Content-Transfer-Encoding': 'Content-Transfer-Encoding',
+        'Content-Type': 'text/plain; charset=utf-8',
+        'Plural-Forms': languageData.pluralForm,
+    };
+}
+
+
+function mkdirRecursiveSync(dir: string) {
+    const separator = (path.sep as string);
+    let paths = dir.split(separator);
+    let fullPath = '';
+    paths.forEach((path) => {
+
+        if (fullPath === '') {
+            fullPath = path;
+        } else {
+            fullPath = `${fullPath}${separator}${path}`;
+        }
+
+        if (!fs.existsSync(fullPath)) {
+            fs.mkdirSync(fullPath);
+        }
+    });
+}
 
 
 class Makemessages {
-    constructor(options = {}) {
+    localeDir: string;
+    domain: string;
+    path: string;
+    extensions: string[];
+    keepPot: boolean;
+    potFile: string;
+    languages: string[];
+
+    constructor(options: MakeMessageOptions) {
         this.domain = options.domain;
         this.path = options.path;
         this.extensions = options.extension;
@@ -25,7 +77,6 @@ class Makemessages {
         this.languages = this.getValidLanguages(
             options.locale, options.exclude, options.all,
         );
-        this.plurals = plurals;
 
         this.validateConfig();
     }
@@ -52,10 +103,10 @@ class Makemessages {
         }
     }
 
-    getValidLanguages(locales = [], excludes = [], all) {
+    getValidLanguages(locales: string[] = [], excludes: Array<string> = [], all: boolean) {
         const localesExist = fs.existsSync(this.localeDir);
 
-        let languages = [];
+        let languages: string[] = [];
 
         if (all && !localesExist) {
             throw new Error(`Locale directory "${this.localeDir}" does not exist.`);
@@ -77,40 +128,13 @@ class Makemessages {
         return languages;
     }
 
-    getHeader(language = null) {
-        if (!this.plurals[language]) {
-            throw new Error(`"${language}" missing a plural form definition`);
-        }
-
-        const languageData = this.plurals[language];
-
-        return {
-            'Project-Id-Version': 'PACKAGE VERSION',
-            'Report-Msgid-Bugs-To': '',
-            'POT-Creation-Date': format(new Date(), 'YYYY-MM-DD HH:mmZZ'),
-            'PO-Revision-Date': format(new Date(), 'YYYY-MM-DD HH:mmZZ'),
-            'Last-Translator': 'FULL NAME <EMAIL@ADDRESS>',
-            'Language-Team': `${languageData.name} <LL@li.org>`,
-            Language: languageData.code,
-            'MIME-Version': '1.0',
-            'Content-Transfer-Encoding': 'Content-Transfer-Encoding',
-            'Content-Type': 'text/plain; charset=utf-8',
-            'Plural-Forms': languageData.pluralForm,
-        };
-    }
-
     process() {
         if (!this.languages) {
             throw new Error('No locales to process');
         }
 
         // Ensure locale directory is created
-        shell.mkdir('-p', this.localeDir);
-
-        // TODO - create all dir's needed
-        if (!fs.existsSync(this.localeDir)) {
-            fs.mkdirSync(this.localeDir);
-        }
+        mkdirRecursiveSync(this.localeDir);
 
         const extractor = this.processFiles();
 
@@ -119,31 +143,33 @@ class Makemessages {
         });
 
         if (!this.keepPot) {
-            shell.rm('-f', this.potFile);
+            fs.unlinkSync(this.potFile);
         }
 
         // Show stats for extracted messages
         extractor.printStats();
     }
 
-    processLanguage(extractor, language) {
-        getLogger().log(`Processing locale ${language}`);
+    processLanguage(extractor: GettextExtractor, language: string) {
+        console.log(`Processing locale ${language}`);
+
         const languageDir = `${this.localeDir}/${language}/LC_MESSAGES`;
         const poFile = `${languageDir}/${this.domain}.po`;
-        const poHeader = this.getHeader(language);
+        const poHeader = getDefaultHeader(language);
 
         const messages = extractor.getMessages();
 
-        const invalidMessage = messages.find(message => !message.text);
+        const invalidMessage = messages.find((message: IMessage) => !message.text);
+        const references = invalidMessage!.references;
 
-        if (invalidMessage) {
-            throw new Error(`Message "" is invalid, used in files: ${invalidMessage.references.join()}`);
+        if (references) {
+            throw new Error(`Message "" is invalid, used in files: ${references.join()}`);
         }
 
         extractor.savePotFile(this.potFile, poHeader);
 
         if (!fs.existsSync(poFile)) {
-            shell.mkdir('-p', languageDir);
+            mkdirRecursiveSync(languageDir);
             extractor.savePotFile(poFile, poHeader);
         }
 
@@ -159,14 +185,16 @@ class Makemessages {
         fs.writeFileSync(poFile, poContents, { mode: 0o766 });
     }
 
-    processFiles() {
+    processFiles(): GettextExtractor {
         const commentOptions = {
             otherLineLeading: true,
         };
         const extractor = new GettextExtractor();
         extractor
             .createJsParser([
-                JsExtractors.callExpression(['_', 'gettext', '[i18n].gettext'], {
+                JsExtractors.callExpression([
+                    'gettextNoop', 'gettext', '[i18n].gettext', '[props.i18n].gettext', '[this.props.i18n].gettext',
+                ], {
                     arguments: {
                         text: 0,
                     },
@@ -209,3 +237,5 @@ class Makemessages {
 
 
 export default Makemessages;
+
+export { MakeMessageOptions } from './types';

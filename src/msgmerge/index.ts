@@ -1,54 +1,14 @@
-// @flow
 import fs from 'fs';
 import gettextParser from 'gettext-parser';
 
 import { HeaderKeyOrder, makeArray } from './utils';
 
-import plurals from '../plurals.json';
+import {
+    MergeOptionType, TranslationType, CatalogueHeaders, CatalogueType,
+} from '../types';
+import * as plurals from '../plurals.json';
+import { hasKey } from '../utils';
 
-
-export type MergeOptionType = {
-    language: string,
-};
-
-export type TranslationType = {
-    msgctxt?: string,
-    msgid: string,
-    msgid_plural?: string,
-    msgstr: Array<string>,
-    comments: {
-        translator?: string,
-        reference?: string,
-        extracted?: string,
-        flag?: string,
-        previous?: string,
-    },
-};
-
-export type CatalogueHeaders = {
-    'content-type'?: string,
-    'project-id-version'?: string,
-    'report-msgid-bugs-to'?: string,
-    'pot-creation-date'?: string,
-    'po-revision-date'?: string,
-    'last-translator'?: string,
-    'language-team'?: string,
-    'language'?: string,
-    'mime-version'?: string,
-    'content-transfer-encoding'?: string,
-    'plural-forms'?: string
-};
-
-export type CatalogueType = {
-    charset: string,
-    headers?: CatalogueHeaders,
-
-    translations: {
-        [string]: {
-            [string]: TranslationType,
-        },
-    },
-};
 
 const DefaultHeader: CatalogueHeaders = {
     'content-type': 'text/plain; charset=UTF-8',
@@ -81,17 +41,12 @@ function fillLanguageInfo(options: MergeOptionType): CatalogueHeaders {
     // Use defined language to select correct plural form
     const { language = '' } = options;
 
-    const languageData: {
-        code: string,
-        name: string,
-        numPlurals: number,
-        pluralForm: string,
-    } = plurals[language];
-
     // Return empty language info if language code is not defined
-    if (!languageData) {
+    if (!hasKey(plurals, language)) {
         return {};
     }
+
+    const languageData = plurals[language];
 
     return {
         language: languageData.code,
@@ -110,7 +65,7 @@ function fillLanguageInfo(options: MergeOptionType): CatalogueHeaders {
  */
 function mergeHeader(reference: CatalogueType, definitions: CatalogueType, options: MergeOptionType): CatalogueType {
     // Create empty translation object
-    const output = (gettextParser.po.parse(''): CatalogueType);
+    const output = (gettextParser.po.parse('') as CatalogueType);
 
     // Copy charset from the reference file
     output.charset = reference.charset;
@@ -132,16 +87,16 @@ function mergeHeader(reference: CatalogueType, definitions: CatalogueType, optio
     output.headers = HeaderKeyOrder.reduce((result, key) => {
         result[key] = headers[key];
         return result;
-    }, {});
+    }, {} as CatalogueHeaders);
 
     let translator = DefaultHeaderComment;
     const hasHeaderComment = (
         definitions.translations && definitions.translations[''] && definitions.translations['']['']
-        && definitions.translations['']['']?.comments?.translator
+        && definitions.translations['']['']!.comments!.translator
     );
+
     if (hasHeaderComment) {
-        // eslint-disable-next-line prefer-destructuring
-        translator = definitions.translations[''][''].comments.translator;
+        translator = (definitions.translations[''][''].comments.translator as string);
     }
 
     // Copy comments over from definition or use defaults
@@ -169,7 +124,7 @@ function mergeHeader(reference: CatalogueType, definitions: CatalogueType, optio
 function getNumPluralsFromCatalogue(catalogue: CatalogueType): number {
     const defaultPlurals = 2;
 
-    const headers = catalogue?.headers || {};
+    const headers = catalogue!.headers || {};
     const pluralForms = headers['plural-forms'];
 
     if (!pluralForms) {
@@ -186,8 +141,8 @@ function getNumPluralsFromCatalogue(catalogue: CatalogueType): number {
 }
 
 
-function getMessageFromCatalogue(catalogue: CatalogueType, context: string, msgid: string): ?TranslationType {
-    const translations = catalogue?.translations || {};
+function getMessageFromCatalogue(catalogue: CatalogueType, context: string, msgid: string): TranslationType | null {
+    const translations = catalogue!.translations || {};
     const contextCatalogue = translations[context];
 
     if (!contextCatalogue) {
@@ -200,7 +155,7 @@ function getMessageFromCatalogue(catalogue: CatalogueType, context: string, msgi
 }
 
 
-function mergeMessage(refMessage: TranslationType, defMessage: ?TranslationType, out: CatalogueType) {
+function mergeMessage(refMessage: TranslationType, defMessage: null | TranslationType, out: CatalogueType) {
     const message: TranslationType = {
         ...refMessage,
     };
@@ -242,26 +197,6 @@ function mergeMessage(refMessage: TranslationType, defMessage: ?TranslationType,
  * Comments are preserved in definitions file. Extracted comments and
  *  location references are taken from reference file.
  *
- * @param ref - Po/Pot file containing new translations
- * @param def - Existing Po/Pot file
- * @param out - Output Po file
- */
-function mergeMessages(ref: CatalogueType, def: CatalogueType, out: CatalogueType) {
-    Object.keys(ref.translations).forEach((context) => {
-        Object.keys(ref.translations[context]).forEach((msgid) => {
-            const defMessage = getMessageFromCatalogue(def, context, msgid);
-            mergeMessage(ref.translations[context][msgid], defMessage, out);
-        });
-    });
-}
-
-
-/**
- * Merge messages from reference and definitions file into output file.
- *
- * Comments are preserved in definitions file. Extracted comments and
- *  location references are taken from reference file.
- *
  * @param {CatalogueType} reference - Po/Pot file containing new translations
  * @param {CatalogueType} definitions - Existing Po/Pot file
  * @param {MergeOptionType} options - Merge options
@@ -269,7 +204,15 @@ function mergeMessages(ref: CatalogueType, def: CatalogueType, out: CatalogueTyp
  */
 export function merge(reference: CatalogueType, definitions: CatalogueType, options: MergeOptionType) {
     const output = mergeHeader(reference, definitions, options);
-    mergeMessages(reference, definitions, output);
+
+    // Merge messages
+    Object.keys(reference.translations).forEach((context) => {
+        Object.keys(reference.translations[context]).forEach((msgid) => {
+            const defMessage = getMessageFromCatalogue(definitions, context, msgid);
+            mergeMessage(reference.translations[context][msgid], defMessage, output);
+        });
+    });
+
     return output;
 }
 
@@ -282,9 +225,9 @@ export function merge(reference: CatalogueType, definitions: CatalogueType, opti
  * @returns {string}
  */
 export function toString(catalogue: CatalogueType): string {
-    let fileData = (gettextParser.po.compile(catalogue).toString(catalogue.charset): string);
+    let fileData = (gettextParser.po.compile(catalogue).toString(catalogue.charset) as string);
 
-    fileData = fileData.split('\n').reduce((result, line) => (
+    fileData = fileData.split('\n').reduce((result: string[], line: string) => (
         result.concat([line.trimRight()])
     ), []).join('\n');
 

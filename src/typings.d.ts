@@ -12,3 +12,21 @@ declare module 'jed' {
 
     export default Jed;
 }
+
+
+declare module 'gettext-parser' {
+    const getTextParser: {
+        po: {
+            compile: (catalogue: any) => Buffer,
+            parse: (fileData: string | Buffer) => any,
+        }
+    };
+
+    export default getTextParser;
+}
+
+
+declare module '*.json' {
+  const value: any;
+  export default value;
+}

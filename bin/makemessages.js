@@ -1,9 +1,9 @@
 #! /usr/bin/env node
 const yargs = require('yargs');
-const MakeMessages = require('./index').default;
+const { MakeMessages } = require('../dist/tg-i18n');
 
 
-const { argv } = yargs
+const argv = yargs
     .usage('Usage: $0 [options]')
     .scriptName('i18n-makemessages')
     .option('path', {
@@ -33,7 +33,7 @@ const { argv } = yargs
     .option('extension', {
         array: true,
         alias: 'e',
-        default: 'js',
+        default: ['js', 'jsx', 'ts', 'tsx'],
         description: 'Define extensions to examine. Can be used multiple times.',
     })
     .option('locale-dir', {
@@ -55,19 +55,18 @@ const { argv } = yargs
     })
     .option('h', {
         alias: 'help',
-        description: 'Display help message',
+        description: 'Display this help message',
     })
     .help('h')
     .alias('version', 'v')
     .epilog('for more information visit https://github.com/thorgate/tg-i18n')
     .group([
         'path', 'domain', 'locale', 'exclude', 'extension', 'locale-dir', 'show-pot', 'keep-pot', 'all',
-    ], 'Message options:');
+    ], 'Message options:').argv;
 
 try {
     const cli = new MakeMessages(argv);
     cli.process();
 } catch (error) {
-    // eslint-disable-next-line no-console
     console.error('%s', error.stack);
 }

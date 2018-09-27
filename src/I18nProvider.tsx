@@ -1,14 +1,14 @@
 // I18nProvider
 import * as React from 'react';
 
-import { gettext, ngettext, pgettext, npgettext, interpolate, setConfig, getConfig, activateLanguage } from './config';
-import { I18nProviderProps, I18nProviderState } from './types';
+import { gettext, ngettext, pgettext, npgettext, interpolate, setConfig, activateLanguage } from './config';
+import { I18nProviderProps, I18nProps } from './types';
 import { Provider } from './withI18N';
 
 
 export { I18nProviderProps } from './types';
 
-export class I18nProvider extends React.Component<I18nProviderProps, I18nProviderState> {
+export class I18nProvider extends React.Component<I18nProviderProps, I18nProps> {
     constructor(props: I18nProviderProps) {
         super(props);
 

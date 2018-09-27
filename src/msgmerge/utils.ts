@@ -1,4 +1,3 @@
-// @flow
 export const HeaderKeyOrder = [
     'content-type',
     'project-id-version',
@@ -14,7 +13,7 @@ export const HeaderKeyOrder = [
 ];
 
 
-export function makeArray(value: string | number, length: number) {
+export function makeArray<T>(value: T, length: number): T[] {
     const array = [];
     let i = 0;
 

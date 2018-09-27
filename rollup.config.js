@@ -1,36 +1,14 @@
 import replace from 'rollup-plugin-replace';
 import resolve from 'rollup-plugin-node-resolve';
-import sourceMaps from 'rollup-plugin-sourcemaps';
+import commonjs from 'rollup-plugin-commonjs';
+import typescript from 'rollup-plugin-typescript2';
+import json from 'rollup-plugin-json';
 import pkg from './package.json';
 
-const input = './compiled/index.js';
-const external = ['react', 'react-native'];
-
-
-// TODO : Define cli
-const buildCjs = ({ env }) => ({
-    input,
-    external: external.concat(Object.keys(pkg.dependencies)),
-    output: [
-        {
-            file: `./dist/${pkg.name}.cjs.${env}.js`,
-            format: 'cjs',
-            sourcemap: true,
-        },
-    ],
-    plugins: [
-        resolve(),
-        replace({
-            exclude: 'node_modules/**',
-            'process.env.NODE_ENV': JSON.stringify(env),
-        }),
-        sourceMaps(),
-    ],
-});
+const input = './src/index.ts';
+const external = ['react', 'react-native', 'fs', 'path'];
 
 export default [
-    buildCjs({ env: 'production' }),
-    buildCjs({ env: 'development' }),
     {
         input,
         external: external.concat(Object.keys(pkg.dependencies)),
@@ -38,17 +16,28 @@ export default [
             {
                 file: pkg.module,
                 format: 'es',
-                sourcemap: true,
             },
             {
                 file: pkg.main,
                 format: 'cjs',
-                sourcemap: true,
             },
         ],
         plugins: [
             resolve(),
-            sourceMaps(),
+            commonjs(),
+            replace({
+                exclude: 'node_modules/**',
+                VERSION: pkg.version,
+                delimiters: ['<@', '@>'],
+            }),
+            typescript({
+                check: true,
+                clean: true,
+                cacheRoot: __dirname + '/.rts2_cache',
+            }),
+            json({
+                compact: true,
+            }),
         ],
     },
 ];

@@ -8,8 +8,8 @@
     "esModuleInterop": true,
     "importHelpers": true,
     "jsx": "react",
-    "lib": ["es2015", "dom"],
-    "module": "esnext",
+    "lib": ["dom", "es2017"],
+    "module": "es6",
     "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
@@ -24,8 +24,8 @@
     "strict": true,
     "strictNullChecks": true,
     "stripInternal": true,
-    "target": "es5"
+    "target": "es2017"
   },
-  "include": ["src", "types"],
+  "include": ["src"],
   "exclude": ["node_modules", "dist"]
 }
