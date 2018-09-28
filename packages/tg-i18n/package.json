@@ -1,9 +1,8 @@
 {
-  "name": "@thorgate/node-msgmerge",
+  "name": "tg-i18n",
   "version": "1.0.0-alpha1",
-  "description": "Tool to merge 2 .po/.pot files",
+  "description": "Internalization toolset for React apps",
   "main": "lib/index.js",
-  "module": "lib/index.esm.js",
   "typings": "lib/index.d.ts",
   "repository": {
     "type": "git",
@@ -11,9 +10,16 @@
   },
   "keywords": [
     "tg-i18n",
+    "react",
+    "react-dom",
     "i18n",
     "translations",
-    "node-msgmerge"
+    "gettext",
+    "compilemessages",
+    "makemessages",
+    "msgmerge",
+    "higher order component",
+    "hoc"
   ],
   "author": "Thorgate <hi@thorgate.eu>",
   "contributors": [
@@ -32,43 +38,26 @@
     "rollup": "0.66.2",
     "ts-jest": "23.10.1",
     "tslint": "5.11.0",
+    "tslint-react": "3.6.0",
     "typescript": "3.0.3"
   },
   "dependencies": {
+    "@thorgate/i18n": "1.0.0-alpha1",
+    "@thorgate/i18n-cli": "1.0.0-alpha1",
+    "@thorgate/i18n-data": "1.0.0-alpha1",
     "@thorgate/i18n-utils": "1.0.0-alpha1",
-    "tslib": "1.9.3"
+    "@thorgate/node-compilemessages": "1.0.0-alpha1",
+    "@thorgate/node-makemessages": "1.0.0-alpha1",
+    "@thorgate/node-msgmerge": "1.0.0-alpha1"
   },
   "files": [
     "lib/"
   ],
-  "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{ts,tsx}"
-    ],
-    "transform": {
-      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
-    },
-    "testMatch": [
-      "<rootDir>/test/**/?(*.)(spec|test).ts?(x)"
-    ],
-    "transformIgnorePatterns": [
-      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$"
-    ],
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "json"
-    ]
-  },
   "scripts": {
     "clean": "rimraf lib",
     "lint": "tslint -p tsconfig.lint.json",
     "prebuild": "yarn clean -s && yarn lint",
-    "build": "rollup -c=../../rollup.config.js",
-    "test": "jest || echo No tests to run",
-    "test:coverage": "jest --coverage || echo No tests to run",
-    "coveralls": "yarn coverage && cat ./coverage/lcov.info | coveralls",
+    "build": "rollup -c || echo TODO : create grouping if required",
     "prepublish": "yarn build",
     "prepare": "yarn build -s",
     "prepublishOnly": "yarn build -s"

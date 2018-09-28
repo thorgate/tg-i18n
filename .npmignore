@@ -2,13 +2,11 @@
 logs
 examples
 *.log
-node_modules
 .release
 tmp
 coverage
 .nyc_output
-npm-debug.log
+yarn-error.log
 .vscode
 .idea
-
-dist/*_cache/
+node_modules

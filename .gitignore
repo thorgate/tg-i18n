@@ -1,5 +1,6 @@
 node_modules
-dist
+packages/cli/bin
+lib
 compiled
 coverage
 *.log
@@ -8,4 +9,4 @@ coverage
 *.orig
 .DS_Store
 
-*_cache/
+.cache/

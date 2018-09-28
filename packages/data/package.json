@@ -1,19 +1,15 @@
 {
-  "name": "@thorgate/node-msgmerge",
+  "name": "@thorgate/i18n-data",
   "version": "1.0.0-alpha1",
-  "description": "Tool to merge 2 .po/.pot files",
+  "description": "Shared data for tg-i18n modules",
   "main": "lib/index.js",
-  "module": "lib/index.esm.js",
   "typings": "lib/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/thorgate/tg-i18n.git"
   },
   "keywords": [
-    "tg-i18n",
-    "i18n",
-    "translations",
-    "node-msgmerge"
+    "tg-i18n"
   ],
   "author": "Thorgate <hi@thorgate.eu>",
   "contributors": [
@@ -26,49 +22,22 @@
   },
   "homepage": "https://github.com/thorgate/tg-i18n",
   "devDependencies": {
-    "coveralls": "3.0.2",
-    "jest-cli": "23.6.0",
     "rimraf": "*",
     "rollup": "0.66.2",
-    "ts-jest": "23.10.1",
     "tslint": "5.11.0",
     "typescript": "3.0.3"
   },
   "dependencies": {
-    "@thorgate/i18n-utils": "1.0.0-alpha1",
     "tslib": "1.9.3"
   },
   "files": [
     "lib/"
   ],
-  "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{ts,tsx}"
-    ],
-    "transform": {
-      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
-    },
-    "testMatch": [
-      "<rootDir>/test/**/?(*.)(spec|test).ts?(x)"
-    ],
-    "transformIgnorePatterns": [
-      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$"
-    ],
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "json"
-    ]
-  },
   "scripts": {
     "clean": "rimraf lib",
     "lint": "tslint -p tsconfig.lint.json",
-    "prebuild": "yarn clean -s && yarn lint",
+    "prebuild": "yarn clean && yarn lint",
     "build": "rollup -c=../../rollup.config.js",
-    "test": "jest || echo No tests to run",
-    "test:coverage": "jest --coverage || echo No tests to run",
-    "coveralls": "yarn coverage && cat ./coverage/lcov.info | coveralls",
     "prepublish": "yarn build",
     "prepare": "yarn build -s",
     "prepublishOnly": "yarn build -s"

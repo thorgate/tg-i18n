@@ -1,16 +1,16 @@
-#! /usr/bin/env node
-const yargs = require('yargs');
-const { MakeMessages } = require('../dist/tg-i18n');
+import * as yargs from 'yargs';
+
+import { Makemessages } from '@thorgate/node-makemessages';
 
 
 const argv = yargs
     .usage('Usage: $0 [options]')
-    .scriptName('i18n-makemessages')
+    .scriptName('node-makemessages')
     .option('path', {
         string: true,
         normalize: true,
         alias: 'p',
-        default: 'src',
+        default: '.',
         description: 'Source folder to scan.',
     })
     .option('domain', {
@@ -26,14 +26,14 @@ const argv = yargs
     .option('exclude', {
         array: true,
         alias: 'x',
-        description: 'Locales to exclude. Can be used multiple times. '
-            + 'If "locale" and exclude are both specified',
+        description: 'Locales to exclude. Can be used multiple times. ' +
+            'If "locale" and exclude are both specified',
         type: 'string',
     })
     .option('extension', {
         array: true,
         alias: 'e',
-        default: ['js', 'jsx', 'ts', 'tsx'],
+        default: 'js',
         description: 'Define extensions to examine. Can be used multiple times.',
     })
     .option('locale-dir', {
@@ -55,18 +55,31 @@ const argv = yargs
     })
     .option('h', {
         alias: 'help',
-        description: 'Display this help message',
+        description: 'Display help message',
     })
     .help('h')
-    .alias('version', 'v')
+    .version('version', '<@ VERSION @>').alias('v', 'version')
     .epilog('for more information visit https://github.com/thorgate/tg-i18n')
     .group([
         'path', 'domain', 'locale', 'exclude', 'extension', 'locale-dir', 'show-pot', 'keep-pot', 'all',
-    ], 'Message options:').argv;
+    ], 'Message options:')
+    .argv;
+
 
 try {
-    const cli = new MakeMessages(argv);
-    cli.process();
+    const makemessages = new Makemessages({
+        all: argv.all,
+        path: argv.path,
+        domain: argv.domain,
+        locales: argv.locale,
+        excludes: argv.exclude,
+        extensions: argv.extension,
+        keepPot: argv['keep-pot'],
+        localeDir: argv['locale-dir'],
+    });
+
+    // Run makemessages
+    makemessages.process();
 } catch (error) {
-    console.error('%s', error.stack);
+    console.error(error);
 }

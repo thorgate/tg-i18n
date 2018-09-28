@@ -1,5 +1,6 @@
 {
   "extends": "../../tsconfig.json",
+  "include": ["src"],
   "compilerOptions": {
     "rootDir": "src",
     "declarationDir": "lib",
@@ -7,9 +8,6 @@
     "composite": true
   },
   "references":[
-    { "path": "../data" },
-    { "path": "../utils" },
-    { "path": "../makemessages" },
-    { "path": "../msgmerge" }
+    { "path": "../data" }
   ]
 }

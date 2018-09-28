@@ -1,85 +1,48 @@
 {
-  "name": "@thorgate/tg-i18n-makemessages",
+  "name": "@thorgate/node-makemessages",
   "version": "1.0.0-alpha1",
-  "description": "Tool to generate translation files and provide them to React apps.",
-  "main": "dist/tg-i18n.js",
-  "typings": "dist/index.d.ts",
+  "description": "Tool to generate and update translation files.",
+  "main": "lib/index.js",
+  "module": "lib/index.esm.js",
+  "typings": "lib/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/thorgate/tg-i18n.git"
   },
   "keywords": [
     "tg-i18n",
-    "react",
-    "react-dom",
     "i18n",
-    "translations",
-    "gettext",
-    "higher order component",
-    "hoc"
+    "translations"
   ],
-  "bin": {
-    "i18n-makemessages": "./dist/cli.js"
-  },
   "author": "Thorgate <hi@thorgate.eu>",
+  "contributors": [
+    "Jürno Ader <jyrno42@gmail.com> (https://github.com/Jyrno42)",
+    "Jörgen Ader <jorgen.ader@gmail.com> (https://github.com/metsavaht)"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/thorgate/tg-i18n/issues"
   },
   "homepage": "https://github.com/thorgate/tg-i18n",
   "devDependencies": {
-    "@types/hoist-non-react-statics": "3.0.1",
-    "@types/jest": "23.3.2",
-    "@types/node": "10.10.3",
-    "@types/react": "16.4.14",
-    "@types/react-dom": "16.0.7",
-    "@types/warning": "3.0.0",
-    "@types/yargs": "12.0.0",
-    "awesome-typescript-loader": "5.2.1",
     "coveralls": "3.0.2",
-    "cross-env": "5.2.0",
-    "jest": "23.6.0",
     "jest-cli": "23.6.0",
-    "jsdoc-to-markdown": "4.0.1",
-    "lerna": "3.4.0",
-    "raw-loader": "^0.5.1",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
-    "react-testing-library": "5.1.0",
     "rimraf": "*",
     "rollup": "0.66.2",
-    "rollup-plugin-commonjs": "9.1.8",
-    "rollup-plugin-json": "3.1.0",
-    "rollup-plugin-node-builtins": "2.1.2",
-    "rollup-plugin-node-resolve": "3.4.0",
-    "rollup-plugin-replace": "2.0.0",
-    "rollup-plugin-sourcemaps": "0.4.2",
-    "rollup-plugin-typescript2": "0.17.0",
     "ts-jest": "23.10.1",
-    "tsc-watch": "1.0.27",
     "tslint": "5.11.0",
-    "tslint-react": "3.6.0",
     "typescript": "3.0.3"
   },
-  "peerDependencies": {
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1"
-  },
   "dependencies": {
-    "create-react-context": "0.2.3",
-    "date-fns": "1.29.0",
+    "@thorgate/i18n-data": "1.0.0-alpha1",
+    "@thorgate/i18n-utils": "1.0.0-alpha1",
+    "@thorgate/node-msgmerge": "1.0.0-alpha1",
     "gettext-extractor": "3.3.2",
-    "gettext-parser": "2.0.0",
-    "hoist-non-react-statics": "3.0.1",
-    "jed": "1.1.1",
-    "prop-types": "15.6.2",
-    "shelljs": "0.8.2",
     "tslib": "1.9.3",
-    "warning": "4.0.2",
     "yargs": "12.0.2"
   },
   "files": [
-    "dist/"
+    "lib/"
   ],
   "jest": {
     "collectCoverageFrom": [
@@ -102,21 +65,15 @@
     ]
   },
   "scripts": {
-    "clean": "$(npm bin)/rimraf dist",
-    "lint": "$(npm bin)/tslint -p .",
-    "watch": "rollup -cw",
-    "test": "$(npm bin)/jest",
-    "coverage": "npm run test -- --coverage",
-    "coveralls": "npm run coverage && cat ./coverage/lcov.info | $(npm bin)/coveralls",
-    "prebuild": "npm run clean -s && npm run lint && tsc -p tsconfig.base.json",
-    "build": "rollup -c",
-    "prepublish": "npm run build",
-    "docs": "$(npm bin)/jsdoc2md -t _docs/README.hbs src/*.js",
-    "prepare": "npm run build -s",
-    "prepublishOnly": "npm run build -s",
-    "patch": "npm version patch && npm publish",
-    "minor": "npm version minor && npm publish",
-    "major": "npm version major && npm publish",
-    "postpublish": "git push origin master --follow-tags"
+    "clean": "rimraf lib",
+    "lint": "tslint -p tsconfig.lint.json",
+    "prebuild": "yarn clean -s && yarn lint",
+    "build": "rollup -c=../../rollup.config.js",
+    "test": "jest",
+    "test:coverage": "yarn test -- --coverage",
+    "coveralls": "yarn coverage && cat ./coverage/lcov.info | $(npm bin)/coveralls",
+    "prepublish": "yarn build",
+    "prepare": "yarn build -s",
+    "prepublishOnly": "yarn build -s"
   }
 }

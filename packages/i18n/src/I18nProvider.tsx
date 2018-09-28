@@ -1,12 +1,9 @@
-// I18nProvider
 import * as React from 'react';
 
-import { gettext, ngettext, pgettext, npgettext, interpolate, setConfig, activateLanguage } from './config';
-import { I18nProviderProps, I18nProps } from './types';
+import { activateLanguage, gettext, interpolate, ngettext, npgettext, pgettext, setConfig } from './config';
+import { I18nProps, I18nProviderProps } from './types';
 import { Provider } from './withI18N';
 
-
-export { I18nProviderProps } from './types';
 
 export class I18nProvider extends React.Component<I18nProviderProps, I18nProps> {
     constructor(props: I18nProviderProps) {
@@ -28,7 +25,7 @@ export class I18nProvider extends React.Component<I18nProviderProps, I18nProps> 
         };
     }
 
-    componentDidUpdate(prevProps: I18nProviderProps) {
+    public componentDidUpdate(prevProps: I18nProviderProps) {
         if (prevProps.defaultLanguage !== this.props.defaultLanguage) {
             setConfig('defaultLanguage', this.props.defaultLanguage);
         }
@@ -43,11 +40,11 @@ export class I18nProvider extends React.Component<I18nProviderProps, I18nProps> 
         }
     }
 
-    onChangeLanguage = (languageCode: string, force: boolean = false) => {
+    public onChangeLanguage = (languageCode: string, force: boolean = false) => {
         activateLanguage(languageCode, force, this.props.onLanguageChange);
     };
 
-    render() {
+    public render() {
         return (
             <Provider value={this.state}>
                 {this.props.children}

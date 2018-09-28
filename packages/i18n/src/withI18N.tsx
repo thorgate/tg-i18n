@@ -1,6 +1,6 @@
-import * as React from 'react';
-import hoistNonReactStatics from 'hoist-non-react-statics';
 import createContext from 'create-react-context';
+import hoistNonReactStatics from 'hoist-non-react-statics';
+import * as React from 'react';
 
 import { I18nContext, I18nProps } from './types';
 
@@ -11,7 +11,7 @@ export const {
 } = createContext<I18nProps>({} as any);
 
 
-export function  withI18n<Props>(Component: React.ComponentType<Props & I18nContext>) {
+export function withI18n<Props>(Component: React.ComponentType<Props & I18nContext>) {
     const WrappedComponent: React.SFC<Props> = (props: Props) => (
         <Consumer>
             {(i18nObj: I18nProps) => <Component {...props} i18n={i18nObj} />}

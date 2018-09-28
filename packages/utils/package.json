@@ -1,7 +1,7 @@
 {
-  "name": "@thorgate/node-msgmerge",
+  "name": "@thorgate/i18n-utils",
   "version": "1.0.0-alpha1",
-  "description": "Tool to merge 2 .po/.pot files",
+  "description": "Utility functions for tg-i18n module",
   "main": "lib/index.js",
   "module": "lib/index.esm.js",
   "typings": "lib/index.d.ts",
@@ -10,10 +10,7 @@
     "url": "git+https://github.com/thorgate/tg-i18n.git"
   },
   "keywords": [
-    "tg-i18n",
-    "i18n",
-    "translations",
-    "node-msgmerge"
+    "tg-i18n"
   ],
   "author": "Thorgate <hi@thorgate.eu>",
   "contributors": [
@@ -35,7 +32,9 @@
     "typescript": "3.0.3"
   },
   "dependencies": {
-    "@thorgate/i18n-utils": "1.0.0-alpha1",
+    "@thorgate/i18n-data": "1.0.0-alpha1",
+    "date-fns": "1.29.0",
+    "gettext-parser": "2.0.0",
     "tslib": "1.9.3"
   },
   "files": [
@@ -62,14 +61,15 @@
     ]
   },
   "scripts": {
-    "clean": "rimraf lib",
+    "clean": "rimraf ./lib",
     "lint": "tslint -p tsconfig.lint.json",
-    "prebuild": "yarn clean -s && yarn lint",
-    "build": "rollup -c=../../rollup.config.js",
-    "test": "jest || echo No tests to run",
-    "test:coverage": "jest --coverage || echo No tests to run",
+    "test": "jest",
+    "test:coverage": "yarn test --coverage",
     "coveralls": "yarn coverage && cat ./coverage/lcov.info | coveralls",
+    "prebuild": "yarn clean && yarn lint",
+    "build": "rollup -c=../../rollup.config.js",
     "prepublish": "yarn build",
+    "docs": "jsdoc2md -t _docs/README.hbs src/*.js",
     "prepare": "yarn build -s",
     "prepublishOnly": "yarn build -s"
   }

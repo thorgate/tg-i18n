@@ -1,10 +1,10 @@
 import Jed from 'jed';
 import warning from 'warning';
 
-import { I18NConfig } from './types';
+import { I18NConfig, LocaleCatalogue } from './types';
 
 
-export const DefaultCatalogue = {
+export const DefaultCatalogue: LocaleCatalogue = {
     domain: 'messages',
     locales: {},
 };

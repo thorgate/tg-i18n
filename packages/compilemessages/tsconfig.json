@@ -2,6 +2,11 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "rootDir": "src",
-    "outDir": "lib"
-  }
+    "declarationDir": "lib",
+    "outDir": "lib",
+    "composite": true
+  },
+  "references":[
+    { "path": "../utils" }
+  ]
 }

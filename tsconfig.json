@@ -1,14 +1,7 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
+    "rootDir": ".",
     "baseUrl": "./packages",
-    "paths": {
-      "@thorgate/tg-i18n-*": [
-        "./*/src"
-      ],
-      "tg-i18n": [
-        "./core/src"
-      ]
-    }
   }
 }

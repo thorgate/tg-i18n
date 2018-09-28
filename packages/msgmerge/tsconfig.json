@@ -1,7 +1,14 @@
 {
   "extends": "../../tsconfig.json",
+  "include": ["src"],
   "compilerOptions": {
     "rootDir": "src",
-    "outDir": "lib"
-  }
+    "declarationDir": "lib",
+    "outDir": "lib",
+    "composite": true
+  },
+  "references":[
+    { "path": "../data" },
+    { "path": "../utils" }
+  ]
 }
