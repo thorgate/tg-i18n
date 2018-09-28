@@ -1,13 +1,11 @@
 import fs from 'fs';
 import gettextParser from 'gettext-parser';
 
-import { HeaderKeyOrder, makeArray } from './utils';
-
 import {
     MergeOptionType, TranslationType, CatalogueHeaders, CatalogueType,
-} from '../types';
+} from './types';
 import * as plurals from '../plurals.json';
-import { hasKey } from '../utils';
+import { HeaderKeyOrder, hasKey, makeArray } from './utils';
 
 
 const DefaultHeader: CatalogueHeaders = {

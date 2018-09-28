@@ -1,9 +1,32 @@
 {
-  "private": true,
-  "name": "tg-i18n-packages",
-  "workspaces": [
-    "packages/*"
+  "name": "@thorgate/tg-i18n-cli",
+  "version": "1.0.0-alpha1",
+  "description": "Tool to generate translation files and provide them to React apps.",
+  "main": "dist/tg-i18n.js",
+  "typings": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thorgate/tg-i18n.git"
+  },
+  "keywords": [
+    "tg-i18n",
+    "react",
+    "react-dom",
+    "i18n",
+    "translations",
+    "gettext",
+    "higher order component",
+    "hoc"
   ],
+  "bin": {
+    "i18n-makemessages": "./lib/cli.js"
+  },
+  "author": "Thorgate <hi@thorgate.eu>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thorgate/tg-i18n/issues"
+  },
+  "homepage": "https://github.com/thorgate/tg-i18n",
   "devDependencies": {
     "@types/hoist-non-react-statics": "3.0.1",
     "@types/jest": "23.3.2",
@@ -35,7 +58,6 @@
     "ts-jest": "23.10.1",
     "tsc-watch": "1.0.27",
     "tslint": "5.11.0",
-    "tslint-config-standard": "8.0.1",
     "tslint-react": "3.6.0",
     "typescript": "3.0.3"
   },
@@ -56,6 +78,9 @@
     "warning": "4.0.2",
     "yargs": "12.0.2"
   },
+  "files": [
+    "lib/"
+  ],
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{ts,tsx}"
@@ -77,12 +102,21 @@
     ]
   },
   "scripts": {
-    "build": "lerna exec yarn build",
-    "clean": "lerna exec yarn clean",
-    "lint": "lerna exec yarn lint",
-    "test": "lerna exec yarn test",
-    "test:coverage": "lerna exec yarn test:coverage",
-    "check-packages": "yarn clean && yarn build && yarn test && yarn lint",
-    "publish": "lerna publish --skip-npm --force-publish '*'"
+    "clean": "$(npm bin)/rimraf dist",
+    "lint": "$(npm bin)/tslint -p .",
+    "watch": "rollup -cw",
+    "test": "$(npm bin)/jest",
+    "coverage": "npm run test -- --coverage",
+    "coveralls": "npm run coverage && cat ./coverage/lcov.info | $(npm bin)/coveralls",
+    "prebuild": "npm run clean -s && npm run lint && tsc -p tsconfig.base.json",
+    "build": "rollup -c",
+    "prepublish": "npm run build",
+    "docs": "$(npm bin)/jsdoc2md -t _docs/README.hbs src/*.js",
+    "prepare": "npm run build -s",
+    "prepublishOnly": "npm run build -s",
+    "patch": "npm version patch && npm publish",
+    "minor": "npm version minor && npm publish",
+    "major": "npm version major && npm publish",
+    "postpublish": "git push origin master --follow-tags"
   }
 }

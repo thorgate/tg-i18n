@@ -1,16 +1,13 @@
 {
   "extends": "./tsconfig.base.json",
-  "include": [
-    "src",
-    "./typings.d.ts",
-    "types",
-    "test"
-  ],
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "./packages",
     "paths": {
+      "@thorgate/tg-i18n-*": [
+        "./*/src"
+      ],
       "tg-i18n": [
-        "src/"
+        "./core/src"
       ]
     }
   }

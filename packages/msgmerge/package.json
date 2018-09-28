@@ -1,9 +1,29 @@
 {
-  "private": true,
-  "name": "tg-i18n-packages",
-  "workspaces": [
-    "packages/*"
+  "name": "@thorgate/tg-i18n-msgmerge",
+  "version": "1.0.0-alpha1",
+  "description": "Tool to generate translation files and provide them to React apps.",
+  "main": "dist/tg-i18n.js",
+  "typings": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thorgate/tg-i18n.git"
+  },
+  "keywords": [
+    "tg-i18n",
+    "react",
+    "react-dom",
+    "i18n",
+    "translations",
+    "gettext",
+    "higher order component",
+    "hoc"
   ],
+  "author": "Thorgate <hi@thorgate.eu>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thorgate/tg-i18n/issues"
+  },
+  "homepage": "https://github.com/thorgate/tg-i18n",
   "devDependencies": {
     "@types/hoist-non-react-statics": "3.0.1",
     "@types/jest": "23.3.2",
@@ -35,27 +55,15 @@
     "ts-jest": "23.10.1",
     "tsc-watch": "1.0.27",
     "tslint": "5.11.0",
-    "tslint-config-standard": "8.0.1",
     "tslint-react": "3.6.0",
     "typescript": "3.0.3"
   },
-  "peerDependencies": {
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1"
-  },
   "dependencies": {
-    "create-react-context": "0.2.3",
-    "date-fns": "1.29.0",
-    "gettext-extractor": "3.3.2",
-    "gettext-parser": "2.0.0",
-    "hoist-non-react-statics": "3.0.1",
-    "jed": "1.1.1",
-    "prop-types": "15.6.2",
-    "shelljs": "0.8.2",
-    "tslib": "1.9.3",
-    "warning": "4.0.2",
-    "yargs": "12.0.2"
+    "gettext-parser": "2.0.0"
   },
+  "files": [
+    "lib/"
+  ],
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{ts,tsx}"
@@ -77,12 +85,16 @@
     ]
   },
   "scripts": {
-    "build": "lerna exec yarn build",
-    "clean": "lerna exec yarn clean",
-    "lint": "lerna exec yarn lint",
-    "test": "lerna exec yarn test",
-    "test:coverage": "lerna exec yarn test:coverage",
-    "check-packages": "yarn clean && yarn build && yarn test && yarn lint",
-    "publish": "lerna publish --skip-npm --force-publish '*'"
+    "clean": "rimraf lib",
+    "lint": "tslint -p .",
+    "build": "rollup -c",
+    "watch": "rollup -cw",
+    "test": "jest || echo No tests to run",
+    "test:coverage": "jest --coverage || echo No tests to run",
+    "coveralls": "yarn coverage && cat ./coverage/lcov.info | coveralls",
+    "prebuild": "npm run clean -s && npm run lint",
+    "prepublish": "npm run build",
+    "prepare": "npm run build -s",
+    "prepublishOnly": "npm run build -s"
   }
 }
