@@ -3,6 +3,7 @@
   "version": "1.0.0-alpha1",
   "description": "Internalization toolset for React apps",
   "main": "lib/index.js",
+  "module": "lib/index.esm.js",
   "typings": "lib/index.d.ts",
   "repository": {
     "type": "git",
@@ -56,8 +57,8 @@
   "scripts": {
     "clean": "rimraf lib",
     "lint": "tslint -p tsconfig.lint.json",
-    "prebuild": "yarn clean -s && yarn lint",
-    "build": "rollup -c || echo TODO : create grouping if required",
+    "prebuild": "yarn clean && yarn lint",
+    "build": "rollup -c=../../rollup.config.js",
     "prepublish": "yarn build",
     "prepare": "yarn build -s",
     "prepublishOnly": "yarn build -s"

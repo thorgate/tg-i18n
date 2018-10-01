@@ -63,11 +63,11 @@
   "scripts": {
     "clean": "rimraf ./lib",
     "lint": "tslint -p tsconfig.lint.json",
+    "prebuild": "yarn clean && yarn lint",
+    "build": "rollup -c=../../rollup.config.js",
     "test": "jest",
     "test:coverage": "yarn test --coverage",
     "coveralls": "yarn coverage && cat ./coverage/lcov.info | coveralls",
-    "prebuild": "yarn clean && yarn lint",
-    "build": "rollup -c=../../rollup.config.js",
     "prepublish": "yarn build",
     "docs": "jsdoc2md -t _docs/README.hbs src/*.js",
     "prepare": "yarn build -s",

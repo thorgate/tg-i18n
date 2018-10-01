@@ -1,5 +1,4 @@
 /* tslint:disable:interface-name */
-import Jed from 'jed';
 import * as React from 'react';
 
 
@@ -14,24 +13,19 @@ export interface LocaleCatalogue {
     },
 }
 
-export interface I18nAttributes {
+
+export interface I18nOptions {
     activeLanguage: string | null,
-    defaultLanguage: string | null,
+    defaultLanguage: string,
     localeCatalogue: LocaleCatalogue,
 }
 
-export type I18nProviderProps = I18nAttributes & {
-    onLanguageChange: (languageCode: string) => void,
-    children: React.ReactNode,
-};
+export type I18nCallback = (languageCode: string | null) => void;
 
-/**
- * I18N Configuration storage object.
- *   For internal use only.
- */
-export type I18NConfig = I18nAttributes & {
-    translationEngine: Jed | null,
-    [key: string]: any,
+
+export type I18nProviderProps = I18nOptions & {
+    onLanguageChange: I18nCallback,
+    children: React.ReactNode,
 };
 
 
@@ -42,7 +36,7 @@ export interface I18nProps {
     ngettext: (singular: string, plural: string, value: number) => string,
     npgettext: (context: string, singular: string, plural: string, value: number) => string,
     interpolate: (format: string, ...args: any[]) => string,
-    changeLanguage: (languageCode: string, force?: boolean) => void,
+    changeLanguage: (languageCode: string | null, force?: boolean) => void,
 }
 
 

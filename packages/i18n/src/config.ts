@@ -1,7 +1,7 @@
 import Jed from 'jed';
 import warning from 'warning';
 
-import { I18NConfig, LocaleCatalogue } from './types';
+import { I18nCallback, I18nOptions, LocaleCatalogue } from './types';
 
 
 export const DefaultCatalogue: LocaleCatalogue = {
@@ -10,99 +10,123 @@ export const DefaultCatalogue: LocaleCatalogue = {
 };
 
 
-const config: I18NConfig = {
-    activeLanguage: null,
-    defaultLanguage: null,
-    localeCatalogue: DefaultCatalogue,
-    translationEngine: null,
-};
-
-
-export const setConfig = (key: string, val: any) => {
-    config[key] = val;
-};
-
-
-export const getConfig = (key: string): any => {
-    return config[key];
-};
-
-
-export const activateLanguage = (
-    languageCode: string | null, force: boolean = false, callBack?: (languageCode: string) => void,
-) => {
-    if (!languageCode) {
-        config.translationEngine = null;
-        return;
-    }
-
-    if (config.activeLanguage === languageCode && !force) {
-        return;
-    }
-
-    const localeData = config.localeCatalogue.locales[languageCode];
-    warning(!localeData, `Missing locale data for language: "${languageCode}"`);
-    warning(!config.localeCatalogue.domain, 'Missing locale domain in language catalogue');
-
-    if (localeData) {
-        config.translationEngine = new Jed({
-            domain: config.localeCatalogue.domain,
-            locale_data: {
-                [config.localeCatalogue.domain]: localeData,
-            },
-        });
-
-        if (callBack) {
-            callBack(languageCode);
-        }
-    }
-};
-
-
 export const gettextNoop = (key: string) => key;
 
 
-export const gettext = (key: string): string => {
-    if (!config.translationEngine) {
-        return key;
+export class I18N {
+    public readonly defaultLanguage: string;
+
+    constructor(options: I18nOptions) {
+        if (!options.defaultLanguage) {
+            throw new Error('Default language is required');
+        }
+
+        this.defaultLanguage = options.defaultLanguage;
+        this._localeCatalogue = options.localeCatalogue;
+        this._activeLanguage = options.activeLanguage;
+
+        this.activateLanguage(this._activeLanguage, true);
+
+        // Bind all methods to this instance
+        // This is faster than arrow function for repeated initialization
+        this.activateLanguage = this.activateLanguage.bind(true);
+        this.gettext = this.gettext.bind(true);
+        this.pgettext = this.pgettext.bind(true);
+        this.ngettext = this.ngettext.bind(true);
+        this.npgettext = this.npgettext.bind(true);
     }
 
-    return config.translationEngine.gettext(key);
-};
+    private _activeLanguage: string | null;
+    private _localeCatalogue: LocaleCatalogue = DefaultCatalogue;
+    private translationEngine: Jed | null = null;
 
-
-export const pgettext = (context: string, key: string): string => {
-    if (!config.translationEngine) {
-        return key;
+    public get activeLanguage() {
+        return this._activeLanguage;
     }
 
-    return config.translationEngine.pgettext(context, key);
-};
-
-
-export const ngettext = (singular: string, plural: string, value: number): string => {
-    if (!config.translationEngine) {
-        return (value === 0 || value === 1) ? singular : plural;
+    public get localeCatalogue() {
+        return this._localeCatalogue;
     }
 
-    return config.translationEngine.ngettext(singular, plural, value);
-};
-
-
-export const npgettext = (context: string, singular: string, plural: string, value: number): string => {
-    if (!config.translationEngine) {
-        return (value === 0 || value === 1) ? singular : plural;
+    public setLocaleCatalogue(localeCatalogue: LocaleCatalogue, callBack?: I18nCallback) {
+        this._localeCatalogue = localeCatalogue;
+        this.activateLanguage(this.activeLanguage, true, callBack);
     }
 
-    return config.translationEngine.npgettext(context, singular, plural, value);
-};
+    public activateLanguage(languageCode: string | null, force: boolean = false, callBack?: I18nCallback) {
+        const nextLanguageCode = languageCode || this.defaultLanguage;
 
+        if (this.activeLanguage === nextLanguageCode && !force) {
+            return;
+        }
 
-export const interpolate = (format: string, ...args: any[]): string => {
-    if (args.length > 1 && typeof args[0] !== 'object') {
-        // add warning if positional args are used
-        // translators cannot move arguments around to provide better translations
+        const localeData = this.localeCatalogue.locales[nextLanguageCode];
+        warning(!localeData, `Missing locale data for language: "${nextLanguageCode}"`);
+        warning(!this.localeCatalogue.domain, 'Missing locale domain in language catalogue');
+
+        if (localeData) {
+            this.translationEngine = new Jed({
+                domain: this.localeCatalogue.domain,
+                locale_data: {
+                    [this.localeCatalogue.domain]: localeData,
+                },
+            });
+
+            if (callBack) {
+                callBack(nextLanguageCode);
+            }
+
+            this._activeLanguage = nextLanguageCode;
+        }
     }
 
-    return Jed.sprintf(format, ...args);
-};
+    public gettext(key: string): string {
+        if (!this.translationEngine) {
+            return key;
+        }
+
+        return this.translationEngine.gettext(key);
+    }
+
+    public pgettext(context: string, key: string): string {
+        if (!this.translationEngine) {
+            return key;
+        }
+
+        return this.translationEngine.pgettext(context, key);
+    }
+
+    public ngettext(singular: string, plural: string, value: number): string {
+        if (!this.translationEngine) {
+            return (value === 0 || value === 1) ? singular : plural;
+        }
+
+        return this.translationEngine.ngettext(singular, plural, value);
+    }
+
+    public npgettext(context: string, singular: string, plural: string, value: number): string {
+        if (!this.translationEngine) {
+            return (value === 0 || value === 1) ? singular : plural;
+        }
+
+        return this.translationEngine.npgettext(context, singular, plural, value);
+    }
+
+    public static interpolate(format: string, ...args: any[]): string {
+        if (args.length > 1 && typeof args[0] !== 'object') {
+            // add warning if positional args are used
+            // translators cannot move arguments around to provide better translations
+        }
+
+        return Jed.sprintf(format, ...args);
+    };
+}
+
+
+export function createI18N(defaultLanguage: string, localeCatalogue: LocaleCatalogue) {
+    return new I18N({
+        defaultLanguage,
+        localeCatalogue,
+        activeLanguage: null,
+    });
+}

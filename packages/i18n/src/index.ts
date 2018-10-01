@@ -4,11 +4,8 @@ export { withI18n } from './withI18N';
 
 export {
     gettextNoop,
-    gettext,
-    pgettext,
-    ngettext,
-    npgettext,
-    interpolate,
+    createI18N,
+    I18N,
 } from './config';
 
 export * from './types';

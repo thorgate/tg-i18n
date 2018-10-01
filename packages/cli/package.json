@@ -17,6 +17,7 @@
     "hoc"
   ],
   "bin": {
+    "node-compilemessages": "./bin/compilemessages.js",
     "node-makemessages": "./bin/makemessages.js",
     "node-msgmerge": "./bin/msgmerge.js"
   },
