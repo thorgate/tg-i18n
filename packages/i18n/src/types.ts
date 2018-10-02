@@ -2,14 +2,19 @@
 import * as React from 'react';
 
 
-export interface LocaleData {
-    [key: string]: string[],
+export interface JedCatalogueHeader {
+    lang: string,
+    plural_forms: string,
 }
 
 export interface LocaleCatalogue {
     domain: string,
     locales: {
-        [languageCode: string]: LocaleData,
+        [languageCode: string]: {
+            '': JedCatalogueHeader,
+
+            [key: string]: JedCatalogueHeader | string[],
+        },
     },
 }
 
@@ -35,7 +40,6 @@ export interface I18nProps {
     pgettext: (context: string, key: string) => string,
     ngettext: (singular: string, plural: string, value: number) => string,
     npgettext: (context: string, singular: string, plural: string, value: number) => string,
-    interpolate: (format: string, ...args: any[]) => string,
     changeLanguage: (languageCode: string | null, force?: boolean) => void,
 }
 

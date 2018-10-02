@@ -10,7 +10,20 @@ export const DefaultCatalogue: LocaleCatalogue = {
 };
 
 
-export const gettextNoop = (key: string) => key;
+export function gettextNoop(key: string) {
+    return key;
+}
+
+
+export function interpolate(format: string, ...args: any[]): string {
+    warning(
+        (args.length >= 1 && typeof args[0] !== 'object'),
+        'WARN: Prefer kwarg object instead of positional arguments. ' +
+        'Translators cannot move arguments around to provide better translations.',
+    );
+
+    return Jed.sprintf(format, ...args);
+}
 
 
 export class I18N {
@@ -29,11 +42,11 @@ export class I18N {
 
         // Bind all methods to this instance
         // This is faster than arrow function for repeated initialization
-        this.activateLanguage = this.activateLanguage.bind(true);
-        this.gettext = this.gettext.bind(true);
-        this.pgettext = this.pgettext.bind(true);
-        this.ngettext = this.ngettext.bind(true);
-        this.npgettext = this.npgettext.bind(true);
+        this.activateLanguage = this.activateLanguage.bind(this);
+        this.gettext = this.gettext.bind(this);
+        this.pgettext = this.pgettext.bind(this);
+        this.ngettext = this.ngettext.bind(this);
+        this.npgettext = this.npgettext.bind(this);
     }
 
     private _activeLanguage: string | null;
@@ -111,15 +124,6 @@ export class I18N {
 
         return this.translationEngine.npgettext(context, singular, plural, value);
     }
-
-    public static interpolate(format: string, ...args: any[]): string {
-        if (args.length > 1 && typeof args[0] !== 'object') {
-            // add warning if positional args are used
-            // translators cannot move arguments around to provide better translations
-        }
-
-        return Jed.sprintf(format, ...args);
-    };
 }
 
 

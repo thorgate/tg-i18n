@@ -1,5 +1,7 @@
 /* global expect */
-import * as MsgMerge from '../src/msgmerge';
+import { compilePo, parsePo } from '@thorgate/i18n-utils';
+
+import * as MsgMerge from '../src/index';
 
 import { loadFixture } from './utils';
 
@@ -10,9 +12,9 @@ describe('MsgMerge', () => {
         const poFile = loadFixture('messages.po');
 
         const merged = MsgMerge.merge(
-            MsgMerge.parse(potFile), MsgMerge.parse(poFile), { language: 'en' },
+            parsePo(potFile), parsePo(poFile), { language: 'en' },
         );
-        expect(MsgMerge.toString(merged)).toEqual(loadFixture('result.po'));
+        expect(compilePo(merged)).toEqual(loadFixture('result.po'));
     });
 
     test('merge existing : 3 plural forms', () => {
@@ -20,26 +22,26 @@ describe('MsgMerge', () => {
         const poFile = loadFixture('messages-ru.po');
 
         const merged = MsgMerge.merge(
-            MsgMerge.parse(potFile), MsgMerge.parse(poFile), { language: 'ru' },
+            parsePo(potFile), parsePo(poFile), { language: 'ru' },
         );
-        expect(MsgMerge.toString(merged)).toEqual(loadFixture('result-ru.po'));
+        expect(compilePo(merged)).toEqual(loadFixture('result-ru.po'));
     });
 
     test('merge new .po : 2 plural forms', () => {
         const potFile = loadFixture('messages.pot');
 
         const merged = MsgMerge.merge(
-            MsgMerge.parse(potFile), {charset: 'utf8', translations: {}}, { language: 'en' },
+            parsePo(potFile), { charset: 'utf8', translations: {} }, { language: 'en' },
         );
-        expect(MsgMerge.toString(merged)).toEqual(loadFixture('new-messages.po'));
+        expect(compilePo(merged)).toEqual(loadFixture('new-messages.po'));
     });
 
     test('merge new .po : 3 plural forms', () => {
         const potFile = loadFixture('messages-ru.pot');
 
         const merged = MsgMerge.merge(
-            MsgMerge.parse(potFile), {charset: 'utf8', translations: {}}, { language: 'ru' },
+            parsePo(potFile), { charset: 'utf8', translations: {} }, { language: 'ru' },
         );
-        expect(MsgMerge.toString(merged)).toEqual(loadFixture('new-messages-ru.po'));
+        expect(compilePo(merged)).toEqual(loadFixture('new-messages-ru.po'));
     });
 });

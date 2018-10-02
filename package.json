@@ -15,6 +15,7 @@
     "coveralls": "3.0.2",
     "jest": "23.6.0",
     "jest-cli": "23.6.0",
+    "jest-dom": "2.0.0",
     "jsdoc-to-markdown": "4.0.1",
     "lerna": "3.4.0",
     "react": "^16.4.1",
@@ -26,42 +27,20 @@
     "rollup-plugin-node-resolve": "3.4.0",
     "rollup-plugin-replace": "2.0.0",
     "rollup-plugin-typescript2": "0.17.0",
-    "ts-jest": "23.10.1",
+    "ts-jest": "23.10.3",
     "tslib": "1.9.3",
     "tslint": "5.11.0",
     "tslint-config-standard": "8.0.1",
     "tslint-react": "3.6.0",
     "typescript": "3.0.3"
   },
-  "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{ts,tsx}"
-    ],
-    "transform": {
-      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
-    },
-    "testMatch": [
-      "<rootDir>/test/**/?(*.)(spec|test).ts?(x)"
-    ],
-    "transformIgnorePatterns": [
-      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$"
-    ],
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "json"
-    ]
-  },
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "compile": "tsc -b ./packages",
-    "watch": "tsc --build --watch ./packages",
-    "prebuild1": "yarn compile",
     "build": "lerna exec yarn build",
     "lint": "lerna exec yarn lint",
-    "test": "lerna exec yarn test",
-    "test:coverage": "lerna exec yarn test:coverage",
+    "test": "jest",
+    "test:coverage": "yarn test --coverage",
+    "coveralls": "yarn test:coverage && cat ./coverage/lcov.info | coveralls",
     "check-packages": "yarn clean && yarn build && yarn test && yarn lint",
     "publish": "lerna publish --skip-npm --force-publish '*'",
     "clean": "lerna exec yarn clean && yarn run clean-logs",

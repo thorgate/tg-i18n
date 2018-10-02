@@ -28,7 +28,7 @@
     "jest-cli": "23.6.0",
     "rimraf": "*",
     "rollup": "0.66.2",
-    "ts-jest": "23.10.1",
+    "ts-jest": "23.10.3",
     "tslint": "5.11.0",
     "typescript": "3.0.3"
   },
@@ -40,34 +40,11 @@
   "files": [
     "lib/"
   ],
-  "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{ts,tsx}"
-    ],
-    "transform": {
-      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
-    },
-    "testMatch": [
-      "<rootDir>/test/**/?(*.)(spec|test).ts?(x)"
-    ],
-    "transformIgnorePatterns": [
-      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$"
-    ],
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "json"
-    ]
-  },
   "scripts": {
     "clean": "rimraf lib",
     "lint": "tslint -p tsconfig.lint.json",
     "prebuild": "yarn clean && yarn lint",
     "build": "rollup -c=../../rollup.config.js",
-    "test": "jest",
-    "test:coverage": "yarn test -- --coverage",
-    "coveralls": "yarn coverage && cat ./coverage/lcov.info | coveralls",
     "prepublish": "yarn build",
     "prepare": "yarn build -s",
     "prepublishOnly": "yarn build -s"

@@ -56,7 +56,10 @@ export class MessageMerge {
     }
 
     public process() {
-        if (!this.reference.headers!.language && !this.definition.headers!.language && !this.languageOverride) {
+        const referenceHasLanguage = this.reference && this.reference.headers && this.reference.headers.language;
+        const definitionHasLanguage = this.definition && this.definition.headers && this.definition.headers.language;
+
+        if (!referenceHasLanguage && !definitionHasLanguage && !this.languageOverride) {
             throw new Error('Missing language declaration');
         }
 
@@ -96,10 +99,14 @@ export class MessageMerge {
      *  Respect following order: reference.headers.language < definitions.headers.language < options.language
      */
     protected get languageCode(): string {
-        let language = this.reference.headers!.language;
+        let language = '';
 
-        if (this.definition.headers!.language) {
-            language = this.definition.headers!.language;
+        if (this.reference.headers && this.reference.headers.language) {
+            language = this.reference.headers.language;
+        }
+
+        if (this.definition.headers && this.definition.headers.language) {
+            language = this.definition.headers.language;
         }
 
         if (typeof this.languageOverride === 'string') {
@@ -212,6 +219,14 @@ export class MessageMerge {
             message.msgstr = message.msgstr.slice(0, delta);
         }
 
+        if (this._output.translations === undefined) {
+            this._output.translations = {};
+        }
+
+        if (this._output.translations[message.msgctxt || ''] === undefined) {
+            this._output.translations[message.msgctxt || ''] = {};
+        }
+
         // Update message
         this._output.translations[message.msgctxt || ''][message.msgid] = message;
     }
@@ -234,7 +249,7 @@ export class MessageMerge {
  *
  * @param {CatalogueType} ref - Po/Pot catalogue containing new translations
  * @param {CatalogueType} def - Existing Po/Pot catalogue
- * @param {MergeOptionType} options - Merge options
+ * @param {MessageMergeOptions} options - Merge options
  * @returns {CatalogueType}
  */
 export function merge(ref: CatalogueType, def: CatalogueType, options: MergeOptions) {
@@ -257,7 +272,7 @@ export function merge(ref: CatalogueType, def: CatalogueType, options: MergeOpti
  * @param {string} ref - Po/Pot file containing new translations
  * @param {string} def - Existing Po/Pot file
  * @param {string} out - Output file
- * @param {MergeOptionType} options - Merge options
+ * @param {MessageMergeOptions} options - Merge options
  */
 export function mergeFile(ref: string, def: string, out: string, options: MergeOptions) {
     const msgMerge = new MessageMerge({

@@ -21,7 +21,6 @@ export class I18nProvider extends React.Component<I18nProviderProps, I18nProps> 
             ngettext: this.i18n.ngettext,
             pgettext: this.i18n.pgettext,
             npgettext: this.i18n.npgettext,
-            interpolate: I18N.interpolate,
             changeLanguage: this.onChangeLanguage,
         };
     }

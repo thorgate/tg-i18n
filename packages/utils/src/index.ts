@@ -5,14 +5,19 @@ import gettextParser from 'gettext-parser';
 import path from 'path';
 
 
-export interface LocaleData {
-    [key: string]: string[],
+export interface JedCatalogueHeader {
+    lang: string,
+    plural_forms: string,
 }
 
 export interface LocaleCatalogue {
     domain: string,
     locales: {
-        [languageCode: string]: LocaleData,
+        [languageCode: string]: {
+            '': JedCatalogueHeader,
+
+            [key: string]: JedCatalogueHeader | string[],
+        },
     },
 }
 
@@ -35,6 +40,7 @@ export interface CatalogueLanguageHeaders {
     'language-team'?: string,
     'language'?: string,
     'plural-forms'?: string,
+
     [key: string]: any,
 }
 
@@ -65,6 +71,7 @@ export interface ExtractorLanguageHeaders {
     'Language-Team': string,
     'Language': string,
     'Plural-Forms': string,
+
     [key: string]: any,
 }
 
@@ -210,9 +217,9 @@ export function getLanguageHeaders(language: string, asCatalogue: boolean = fals
     const languageData = plurals[language];
 
     const languageHeader: ExtractorLanguageHeaders = {
-        'Language-Team' : `${languageData.name} <LL@li.org>`,
-        Language : languageData.code,
-        'Plural-Forms' : languageData.pluralForm,
+        'Language-Team': `${languageData.name} <LL@li.org>`,
+        Language: languageData.code,
+        'Plural-Forms': languageData.pluralForm,
     };
 
     if (!asCatalogue) {
