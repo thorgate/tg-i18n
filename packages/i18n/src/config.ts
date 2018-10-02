@@ -78,6 +78,7 @@ export class I18N {
         warning(!this.localeCatalogue.domain, 'Missing locale domain in language catalogue');
 
         if (localeData) {
+            // Replace translation engine
             this.translationEngine = new Jed({
                 domain: this.localeCatalogue.domain,
                 locale_data: {
@@ -85,12 +86,14 @@ export class I18N {
                 },
             });
 
+            // Trigger linked callback if it is provided
             if (callBack) {
                 callBack(nextLanguageCode);
             }
-
-            this._activeLanguage = nextLanguageCode;
         }
+
+        // Keep reference to language user wants
+        this._activeLanguage = nextLanguageCode;
     }
 
     public gettext(key: string): string {
