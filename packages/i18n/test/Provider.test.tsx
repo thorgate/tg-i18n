@@ -37,28 +37,41 @@ const catalogue = {
 
 describe('I18N Provider', () => {
 
-    test('render w/ catalogue', () => {
-        const { getByText, rerender } = render(
-            <TestApp catalogue={emptyCatalogue}>
-                <Gettext />
-                <LanguageSwitch code="et">ET</LanguageSwitch>
-            </TestApp>
-        );
-
-        expect(getByText(/test$/).textContent).toEqual('test');
-
-        rerender(
+    test('render w/ catalogue', async () => {
+        const { getByText } = render(
             <TestApp catalogue={catalogue}>
                 <Gettext />
                 <LanguageSwitch code="et">ET</LanguageSwitch>
             </TestApp>
         );
 
+        // Expect english translations to be present
         expect(getByText(/test$/).textContent).toEqual('EN: test');
 
-        // Language is switched
+        // Language switch is triggered
         fireEvent.click(getByText('ET'));
 
+        // Expect language to be changed
         expect(getByText(/test$/).textContent).toEqual('ET: test');
+    });
+
+    test('render catalogue update', () => {
+        const { getByText, rerender } = render(
+            <TestApp catalogue={emptyCatalogue}>
+                <Gettext />
+            </TestApp>
+        );
+
+        // Expect not translated message
+        expect(getByText(/test$/).textContent).toEqual('test');
+
+        rerender(
+            <TestApp catalogue={catalogue}>
+                <Gettext />
+            </TestApp>
+        );
+
+        // Expect english translations to be present
+        expect(getByText(/test$/).textContent).toEqual('EN: test');
     });
 });

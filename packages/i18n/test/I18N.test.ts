@@ -119,12 +119,12 @@ describe('I18N w/ empty catalogue', () => {
 
     test('activeLanguage', () => {
         const i18n = createI18N('en', emptyCatalogue);
-        expect(i18n.activeLanguage).toEqual(null);
+        expect(i18n.activeLanguage).toEqual('en');
     });
 
     test('setLocaleCatalogue', () => {
         const i18n = createI18N('en', emptyCatalogue);
-        expect(i18n.activeLanguage).toEqual(null);
+        expect(i18n.activeLanguage).toEqual('en');
 
         i18n.setLocaleCatalogue(catalogue);
 
@@ -134,7 +134,7 @@ describe('I18N w/ empty catalogue', () => {
 
     test('setLocaleCatalogue w/callback', () => {
         const i18n = createI18N('en', emptyCatalogue);
-        expect(i18n.activeLanguage).toEqual(null);
+        expect(i18n.activeLanguage).toEqual('en');
 
         const cb = jest.fn();
 

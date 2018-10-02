@@ -40,7 +40,9 @@ export class TestApp extends React.Component<TestAppProps, TestAppState> {
 
 
 const DummyGettext: React.SFC<I18nContext> = ({ i18n }: I18nContext) => (
-    <div>{i18n.gettext('test')}</div>
+    <div>
+        {i18n.gettext('test')}
+    </div>
 );
 
 export const Gettext = withI18n<{}>(DummyGettext);

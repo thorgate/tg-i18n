@@ -33,7 +33,13 @@ export class I18nProvider extends React.Component<I18nProviderProps, I18nProps> 
         }
 
         if (prevProps.activeLanguage !== this.props.activeLanguage) {
-            this.i18n.activateLanguage(this.props.activeLanguage, false, this.props.onLanguageChange);
+            this.i18n.activateLanguage(this.props.activeLanguage, false, this.onLanguageChanged);
+        }
+
+        // If state is not using correct language
+        // Sync from i18n instance
+        if (this.state.activeLanguage !== this.i18n.activeLanguage) {
+            this.onLanguageChanged(this.i18n.activeLanguage);
         }
     }
 
