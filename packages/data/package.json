@@ -1,0 +1,45 @@
+{
+  "name": "@thorgate/i18n-data",
+  "version": "1.0.0-alpha1",
+  "description": "Shared data for tg-i18n modules",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thorgate/tg-i18n.git"
+  },
+  "keywords": [
+    "tg-i18n"
+  ],
+  "author": "Thorgate <hi@thorgate.eu>",
+  "contributors": [
+    "Jürno Ader <jyrno42@gmail.com> (https://github.com/Jyrno42)",
+    "Jörgen Ader <jorgen.ader@gmail.com> (https://github.com/metsavaht)"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thorgate/tg-i18n/issues"
+  },
+  "homepage": "https://github.com/thorgate/tg-i18n",
+  "devDependencies": {
+    "rimraf": "*",
+    "rollup": "0.66.2",
+    "tslint": "5.11.0",
+    "typescript": "3.0.3"
+  },
+  "dependencies": {
+    "tslib": "1.9.3"
+  },
+  "files": [
+    "lib/"
+  ],
+  "scripts": {
+    "clean": "rimraf lib",
+    "lint": "tslint -p tsconfig.lint.json",
+    "prebuild": "yarn clean && yarn lint",
+    "build": "rollup -c=../../rollup.config.js",
+    "prepublish": "yarn build",
+    "prepare": "yarn build -s",
+    "prepublishOnly": "yarn build -s"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "declarationDir": "lib",
+    "outDir": "lib",
+    "composite": true
+  },
+  "references":[
+    { "path": "../utils" }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "declarationDir": "lib",
+    "outDir": "lib",
+    "composite": true
+  },
+  "references":[
+    { "path": "../i18n" },
+    { "path": "../data" },
+    { "path": "../utils" },
+    { "path": "../msgmerge" },
+    { "path": "../makemessages" },
+    { "path": "../compilemessages" }
+  ]
+}

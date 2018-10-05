@@ -1,0 +1,53 @@
+{
+  "name": "@thorgate/node-msgmerge",
+  "version": "1.0.0-alpha1",
+  "description": "Tool to merge 2 .po/.pot files",
+  "main": "lib/index.js",
+  "module": "lib/index.esm.js",
+  "typings": "lib/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thorgate/tg-i18n.git"
+  },
+  "keywords": [
+    "tg-i18n",
+    "i18n",
+    "translations",
+    "node-msgmerge"
+  ],
+  "author": "Thorgate <hi@thorgate.eu>",
+  "contributors": [
+    "Jürno Ader <jyrno42@gmail.com> (https://github.com/Jyrno42)",
+    "Jörgen Ader <jorgen.ader@gmail.com> (https://github.com/metsavaht)"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thorgate/tg-i18n/issues"
+  },
+  "homepage": "https://github.com/thorgate/tg-i18n",
+  "devDependencies": {
+    "coveralls": "3.0.2",
+    "jest-cli": "23.6.0",
+    "rimraf": "*",
+    "rollup": "0.66.2",
+    "ts-jest": "23.10.3",
+    "tslint": "5.11.0",
+    "typescript": "3.0.3"
+  },
+  "dependencies": {
+    "@thorgate/i18n-utils": "1.0.0-alpha1",
+    "tslib": "1.9.3"
+  },
+  "files": [
+    "lib/"
+  ],
+  "scripts": {
+    "clean": "rimraf lib",
+    "lint": "tslint -p tsconfig.lint.json",
+    "prebuild": "yarn clean -s && yarn lint",
+    "build": "rollup -c=../../rollup.config.js",
+    "prepublish": "yarn build",
+    "prepare": "yarn build -s",
+    "prepublishOnly": "yarn build -s"
+  }
+}

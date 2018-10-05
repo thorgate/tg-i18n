@@ -1,0 +1,57 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-09-09 19:47+0300\n"
+"PO-Revision-Date: 2018-09-09 19:47+0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Russian <LL@li.org>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: Content-Transfer-Encoding\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: examples/parsing/translations.js:3
+#: examples/parsing/translations.js:17
+#: examples/parsing/translations.js:22
+msgid "Dummy test string"
+msgstr "RU: Dummy test string"
+
+#: examples/parsing/translations.js:9
+msgid "There is %s more waybill"
+msgid_plural "There are %s more waybills"
+msgstr[0] "RU: There is %s more waybill"
+msgstr[1] "RU: There are %s more waybills"
+msgstr[2] "RU: There are %s more waybills"
+msgstr[3] ""
+
+#: examples/parsing/translations.js:6
+msgctxt "test"
+msgid "Dummy test string"
+msgstr "RU: Dummy test string"
+
+#: examples/parsing/translations.js:11
+msgctxt "list"
+msgid "There is %s more waybill"
+msgid_plural "There are %s more waybills"
+msgstr[0] "RU: There is %s more waybill"
+msgstr[1] "RU: There are %s more waybills"
+msgstr[2] "RU: There are %s more waybills"
+msgstr[3] ""
+
+#: examples/parsing/translations.js:12
+msgctxt "list"
+msgid "There is %(waybillCount)s more waybill"
+msgid_plural "There are %(waybillCount)s more waybills"
+msgstr[0] "RU: There is %(waybillCount)s more waybill"
+msgstr[1] "RU: There are %(waybillCount)s more waybills"
+msgstr[2] "RU: There are %(waybillCount)s more waybills"
+msgstr[3] ""
