@@ -113,7 +113,7 @@ export class MessageMerge {
             language = this.languageOverride;
         }
 
-        return language as string;
+        return language;
     }
 
     /**
@@ -219,11 +219,7 @@ export class MessageMerge {
             message.msgstr = message.msgstr.slice(0, delta);
         }
 
-        if (this._output.translations === undefined) {
-            this._output.translations = {};
-        }
-
-        if (this._output.translations[message.msgctxt || ''] === undefined) {
+        if (!hasKey(this._output.translations, message.msgctxt || '')) {
             this._output.translations[message.msgctxt || ''] = {};
         }
 

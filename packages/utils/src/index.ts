@@ -303,6 +303,7 @@ export interface BaseMessagesOptions {
     locales?: string[];
     excludes?: string[];
     all?: boolean;
+    silent?: boolean;
     localeDir?: string;
 }
 
@@ -310,6 +311,7 @@ export class BaseMessages {
     protected _localeDir: string;
     protected _domain: string;
     protected _all: boolean;
+    protected _silent: boolean;
     protected _locales: string[];
     protected _excludes: string[];
 
@@ -320,6 +322,7 @@ export class BaseMessages {
         this._localeDir = options.localeDir || DefaultLocaleDir;
 
         this._all = options.all || false;
+        this._silent = options.silent || false;
         this._locales = options.locales || [];
         this._excludes = options.locales || [];
 
@@ -333,6 +336,15 @@ export class BaseMessages {
     public set all(all: boolean) {
         this._all = all;
         this.validateLocales();
+    }
+
+
+    public get silent() {
+        return this._all;
+    }
+
+    public set silent(silent: boolean) {
+        this._silent = silent;
     }
 
     public get domain() {

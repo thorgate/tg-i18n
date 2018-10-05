@@ -23,6 +23,8 @@ export class CompileMessages extends BaseMessages {
 
     constructor(options: CompileMessagesOptions = {}) {
         super(options);
+        // Compile messages uses all options by default
+        this._all = options.all || true ;
         this._outputMode = options.outputMode || FileOutputMode.NONE;
 
         this._output = this.createInitialCatalogue();
@@ -66,7 +68,9 @@ export class CompileMessages extends BaseMessages {
     }
 
     protected processLanguage(language: string) {
-        console.log(`Processing locale ${language}`);
+        if (!this.silent) {
+            console.log(`Processing locale ${language}`);
+        }
 
         const languageDir = this.getLanguageDirectory(language);
         const poFile = `${languageDir}/${this.domain}.po`;
